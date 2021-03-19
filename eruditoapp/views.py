@@ -8,17 +8,6 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 # Create your views here.
 
-def index(request):
-    subject_list= Subject.objects.order_by('-likes')[:5]
-    most_viewed_threads= Thread.objects.order_by('-views')[:5]
-    context_dict= {}
-    context_dict['boldmessage']= 'Crunchy, creamy, cookie, candy, cupcake!'
-    context_dict['subjects']= subject_list
-    context_dict['threads'] = most_viewed_threads
-
-    visitor_cookie_handler(request)
-    return render(request, 'erudito/about.html', context=context_dict)
-
 def about(request):
     context_dict= {}
     visitor_cookie_handler(request)
@@ -26,10 +15,20 @@ def about(request):
     return render(request, 'erudito/about.html', context=context_dict)
 
 def home(request):
+    # subject_list= Subject.objects.order_by('-likes')[:5]
+    # most_viewed_threads= Thread.objects.order_by('-views')[:5]
+    # context_dict= {}
+    # context_dict['subjects']= subject_list
+    # context_dict['threads'] = most_viewed_threads
+
     context_dict= {}
     visitor_cookie_handler(request)
     context_dict['visits'] = request.session['visits']
     return render(request, 'erudito/home.html', context=context_dict)
+
+def categories(request):
+    context_dict= {}
+    return render(request, 'erudito/categories.html', context= context_dict)
 
 def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request,'visits', '1'))
