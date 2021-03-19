@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<!-- % load staticfiles %} -->
+{% load staticfiles %}
 
-<!--% load eruditoapp_template_tags %} -->
+
+<link rel="stylesheet" type="text/css" href="{% static 'erudito/background.css' %}">
 
 <html>
-<head>
-    {% block head_block %}
-    <link	rel="stylesheet"	type="text/css"	href="cssFiles/background.css"/>
-    {% endblock %}
-    <title>
-        Erudito
-    </title>
-</head>
-<body>
-
-<hr />
+    <head>
+        <title>
+          Erudito -
+            {% block title_block %}
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+        <div>
+        {% block body_block %}
+        {% endblock %}
+        </div>
+        <hr />
 <div>
     <ul>
         {% if user.is_authenticated %}
