@@ -1,4 +1,5 @@
 <!doctype html>
+{% load staticfiles %}
 <html lang="en" class="h-100">
 <head>
     <meta charset="utf-8">
@@ -17,8 +18,7 @@
 
 
     <!-- Bootstrap core CSS -->
-    <link href="cssFiles/otherCover.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'erudito/otherCover.css' %}">
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -37,7 +37,7 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="cssFiles/cover.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'erudito/cover.css' %}">
 </head>
 
 <body class="d-flex h-100 text-center text-white bg-dark">
@@ -48,10 +48,10 @@
         <div>
             <h3 class="float-md-start mb-0">Erudito</h3>
             <nav class="nav nav-masthead justify-content-center float-md-end">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" href="login.html">Login</a>
-                <a class="nav-link" href="#">Categories</a>
-                <a class="nav-link" href="about.html">About</a>
+                <a class="nav-link" aria-current="page" href="{% url 'eruditoapp:home' %}">Home</a>
+                <a class="nav-link" href="{% url 'eruditoapp:login' %}">Login</a>
+                <a class="nav-link" href="{% url 'eruditoapp:about' %}">Categories</a>
+                <a class="nav-link" href="{% url 'eruditoapp:about' %}">About</a>
             </nav>
         </div>
     </header>
@@ -64,4 +64,3 @@
 
 </body>
 </html>
-
