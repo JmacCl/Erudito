@@ -10,4 +10,4 @@ from eruditoapp import views
 urlpatterns = [
     path('', include('eruditoapp.urls')),
     path('admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

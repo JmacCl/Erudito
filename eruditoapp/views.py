@@ -17,7 +17,7 @@ def index(request):
     context_dict['threads'] = most_viewed_threads
 
     visitor_cookie_handler(request)
-    return render(request, 'erudito/index.html', context=context_dict)
+    return render(request, 'erudito/about.html', context=context_dict)
 
 def about(request):
     context_dict= {}
@@ -125,7 +125,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect(reverse('eruditoapp:index'))
+                return redirect(reverse('eruditoapp:about'))
             else:
                 return HttpResponse("Your account is disabled.")
         else:
@@ -141,4 +141,4 @@ def restricted(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect(reverse('eruditoapp:index'))
+    return redirect(reverse('eruditoapp:about'))
