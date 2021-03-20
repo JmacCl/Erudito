@@ -10,4 +10,4 @@ class SubjectAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name', )}
 admin.site.register(Subject, SubjectAdmin)
 admin.site.register(Thread, ThreadAdmin)
-#admin.site.register(UserProfile)
+admin.site.register(UserProfile)
