@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
 class Subject(models.Model):
     NAME_MAX_LENGTH=128
     name= models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
@@ -39,6 +38,9 @@ class Thread(models.Model):
 class UserProfile(models.Model):
     user= models.OneToOneField(User, on_delete= models.CASCADE)
     picture= models.ImageField(upload_to='profile_images', blank=True)
+    role=(('teacher',"Teacher"),
+        ('student',"Student"))
+    roles=models.CharField(max_length=10,choices=role,default="student")
 
     def __str__(self):
         return self.user.username
