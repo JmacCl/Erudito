@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
 class Subject(models.Model):
     NAME_MAX_LENGTH=128
     name= models.CharField(max_length=NAME_MAX_LENGTH, unique=True)
@@ -34,8 +33,7 @@ class Thread(models.Model):
 
     def __str__(self):
         return self.title
-    
-    
+        
 class Comment(models.Model):
     BODY_MAX_LENGTH= 10000
     thread= models.ForeignKey(Thread, on_delete= models.CASCADE)
@@ -48,7 +46,6 @@ class Comment(models.Model):
         return self.body[:25] #returns first 25 characters of string
     
 
-USER_ROLES= [('Student', 'Student'),('Educator','Educator')]
 
 class UserProfile(models.Model):
     MAX_LENGTH= 64
@@ -56,8 +53,13 @@ class UserProfile(models.Model):
     picture= models.ImageField(upload_to='profile_images', blank=True)
     # fullname=models.CharField(max_length= MAX_LENGTH)
     # email= models.EmailField() provided by Django User as fields
-    score= models.IntegerField(default=0)
-    role= models.CharField(max_length= MAX_LENGTH, choices= USER_ROLES)
+
+    USER_ROLES=(('teacher',"Teacher"),
+        ('student',"Student"))
+    role=models.CharField(max_length=10,choices=USER_ROLES,default="student")
+
+    score= models.IntegerField()
+
 
     def __str__(self):
         return self.user.username
