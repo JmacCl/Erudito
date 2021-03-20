@@ -1,5 +1,5 @@
 from django.contrib import admin
-from eruditoapp.models import Subject, Thread ,UserProfile
+from eruditoapp.models import Subject, Thread ,UserProfile, Comment
 
 
 # Register your models here.
@@ -11,3 +11,4 @@ class SubjectAdmin(admin.ModelAdmin):
 admin.site.register(Subject, SubjectAdmin)
 admin.site.register(Thread, ThreadAdmin)
 admin.site.register(UserProfile)
+admin.site.register(Comment)

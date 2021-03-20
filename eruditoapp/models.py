@@ -26,34 +26,40 @@ class Thread(models.Model):
     BODY_MAX_LENGTH= 10000
     subject= models.ForeignKey(Subject, on_delete= models.CASCADE)
     title= models.CharField(max_length=TITLE_MAX_LENGTH)
-    body= models.CharField(max_length=BODY_MAX_LENGTH)
+    body= models.CharField(max_length=BODY_MAX_LENGTH, default="")
     score= models.IntegerField(default=0) #called score in ER diagram
-    date= models.DateTimeField()
+    date= models.DateTimeField(auto_now_add=True)
+    user= models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):
         return self.title
         
 class Comment(models.Model):
     BODY_MAX_LENGTH= 10000
-    thread= models.ForeignKey(Subject, on_delete= models.CASCADE)
-    body= models.CharField(max_length= BODY_MAX_LENGTH)
+    thread= models.ForeignKey(Thread, on_delete= models.CASCADE)
+    body= models.CharField(max_length= BODY_MAX_LENGTH, default="")
     score= models.IntegerField(default=0)
-    date= models.DateTimeField()
+    date= models.DateTimeField(auto_now_add=True)
+    user= models.ForeignKey(User, on_delete= models.CASCADE)
     
     def __str__(self):
         return self.body[:25] #returns first 25 characters of string
     
 
+
 class UserProfile(models.Model):
     MAX_LENGTH= 64
     user= models.OneToOneField(User, on_delete= models.CASCADE)
     picture= models.ImageField(upload_to='profile_images', blank=True)
-    role=(('teacher',"Teacher"),
+    # fullname=models.CharField(max_length= MAX_LENGTH)
+    # email= models.EmailField() provided by Django User as fields
+
+    USER_ROLES=(('teacher',"Teacher"),
         ('student',"Student"))
-    roles=models.CharField(max_length=10,choices=role,default="student")
-    fullname=models.CharField(max_length= MAX_LENGTH)
-    email= models.EmailField()
+    role=models.CharField(max_length=10,choices=USER_ROLES,default="student")
+
     score= models.IntegerField()
+
 
     def __str__(self):
         return self.user.username
