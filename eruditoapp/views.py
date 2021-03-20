@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from datetime import datetime
 # Create your views here.
 
+
 def about(request):
     context_dict= {}
     visitor_cookie_handler(request)
