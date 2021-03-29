@@ -10,9 +10,12 @@ from eruditoapp import views
 app_name= 'eruditoapp'
 urlpatterns= [path('about/', views.about, name='about'),
               path('', views.home, name="home"),
+              path('subject/', views.subjects, name="subjects"),
               path('subject/<slug:subject_name_slug>/', views.show_subject,
                    name= 'show_subject'),
               path("subject/<slug:subject_name_slug>/add_thread/", views.add_thread, name="add_thread"),
+              path("subject/<slug:subject_name_slug>/thread/<slug:thread_name_slug>", 
+                   views.show_thread, name="show_thread"),
               path('register/', views.register, name='register'),
               path('login/', views.user_login, name='login'),
               path('restricted/', views.restricted, name='restricted'),

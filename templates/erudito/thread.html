@@ -1,0 +1,27 @@
+{% extends 'erudito/base.html' %}
+{% load static %}
+
+
+{% block title_block %}
+    {{ thread.title }}
+{% endblock %}
+
+{% block body_block %}
+    <div>
+        <h1> {{ thread.title }} </h1>
+        {{ thread.body }}
+    </div>
+    <div>
+    <h1> Comments </h1>
+    {% if comments %}
+    <ul>
+        {% for comment in comments %}
+            <li class="row"> {{ comment.body }} -- {{ comment.score }} </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        There are no comments yet.
+    {% endif %}
+    </div>
+
+{% endblock %}

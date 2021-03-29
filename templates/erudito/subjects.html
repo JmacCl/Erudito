@@ -1,0 +1,19 @@
+{% extends 'erudito/base.html' %}
+{% load static %}
+
+
+{% block title_block %}
+    Subjects
+{% endblock %}
+
+{% block body_block %}
+    
+    {% if subjects %}
+    <ul>
+        {% for subject in subjects %}
+            <li> <a href="{% url 'eruditoapp:show_subject' subject.slug %}"> {{ subject.name }} </a> </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+{% endblock %}

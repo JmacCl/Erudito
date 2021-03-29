@@ -12,6 +12,13 @@
         <p class="lead">
             <a href="{% url 'eruditoapp:about' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
         </p>
+        {% if subjects %}
+        <ul>
+            {% for subject in subjects %}
+                <li> <a href="{% url 'eruditoapp:show_subject' subject.slug %}"> {{ subject.name }} </a> </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </main>
 
     <footer class="mt-auto text-white-50">

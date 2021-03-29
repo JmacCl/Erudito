@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
-from eruditoapp.models import Subject, Thread
+from eruditoapp.models import Subject, Thread, Comment
 from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -16,20 +16,24 @@ def about(request):
     return render(request, 'erudito/about.html', context=context_dict)
 
 def home(request):
-    # subject_list= Subject.objects.order_by('-likes')[:5]
+
     # most_viewed_threads= Thread.objects.order_by('-views')[:5]
     # context_dict= {}
-    # context_dict['subjects']= subject_list
+
     # context_dict['threads'] = most_viewed_threads
 
     context_dict= {}
     visitor_cookie_handler(request)
+    subject_list= Subject.objects.all()
+    context_dict['subjects']= subject_list
     context_dict['visits'] = request.session['visits']
     return render(request, 'erudito/home.html', context=context_dict)
 
-def categories(request):
+def subjects(request):
     context_dict= {}
-    return render(request, 'erudito/categories.html', context= context_dict)
+    subject_list= Subject.objects.all()
+    context_dict['subjects']= subject_list
+    return render(request, 'erudito/subjects.html', context= context_dict)
 
 def visitor_cookie_handler(request):
     visits = int(get_server_side_cookie(request,'visits', '1'))
@@ -60,6 +64,20 @@ def show_subject(request, subject_name_slug):
         context_dict['threads']= None
         context_dict['subject']= None
     return render(request, 'erudito/subject.html', context=context_dict)
+
+def show_thread(request, subject_name_slug, thread_name_slug):
+    context_dict={}
+    try: 
+        subject= Subject.objects.get(slug=subject_name_slug)
+        thread= Thread.objects.get(slug=thread_name_slug)
+        comments= Comment.objects.filter(thread=thread)
+        context_dict['subject']= subject
+        context_dict['thread']= thread
+        context_dict['comments']= comments
+    except Thread.DoesNotExist:
+        context_dict['thread']= None
+        context_dict['comments']= None
+    return render(request, 'erudito/thread.html', context= context_dict)
 
 @login_required
 def add_thread(request, subject_name_slug):

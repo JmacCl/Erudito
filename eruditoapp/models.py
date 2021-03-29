@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+# import uuid
 
 # Create your models here.
 
@@ -30,6 +31,12 @@ class Thread(models.Model):
     score= models.IntegerField(default=0) #called score in ER diagram
     date= models.DateTimeField(auto_now_add=True)
     user= models.ForeignKey(User, on_delete= models.CASCADE)
+    slug= models.SlugField(unique=True)
+
+    # thread_id=models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4)
+    def save(self, *args, **kwargs):
+        self.slug= slugify(self.title)
+        super(Thread, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title

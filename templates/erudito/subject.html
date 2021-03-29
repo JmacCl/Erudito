@@ -1,0 +1,17 @@
+{% extends 'erudito/base.html' %}
+{% load static %}
+
+
+{% block title_block %}
+    {% if subject %}
+        {{ subject.name }}
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+
+    {% for thread in threads %}
+        <li> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.score }} </a></li>
+    {% endfor %}
+
+{% endblock %}

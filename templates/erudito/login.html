@@ -62,22 +62,9 @@
     </form>
 </main>
 
-<header class="mb-auto">
-    <div>
-        <h3 class="float-md-start mb-0">Erudito</h3>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-            <a class="nav-link" aria-current="page" href="{% url 'eruditoapp:home' %}">Home</a>
-            {% if user.is_authenticated %}
-                <a class="nav-link" href="{% url 'eruditoapp:logout' %}">Log out</a>
-                <a class="nav-link" href="{% url 'eruditoapp:Myaccount' %}">My account</a>
-            {% else %}
-                <a class="nav-link" href="{% url 'eruditoapp:login' %}">Login</a>
-            {% endif %}
-            <a class="nav-link" href="{% url 'eruditoapp:about' %}">Categories</a>
-            <a class="nav-link" href="{% url 'eruditoapp:about' %}">About</a>
-        </nav>
-    </div>
-</header>
+
+
+
 
 
 </body>
