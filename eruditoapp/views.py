@@ -57,7 +57,7 @@ def show_subject(request, subject_name_slug):
     context_dict={}
     try:
         subject= Subject.objects.get(slug=subject_name_slug)
-        threads= Thread.objects.filter(subject=subject)
+        threads= Thread.objects.filter(subject=subject).order_by('-score') #unchecked if works or not, could test after break by creating more in population script
         context_dict['threads']= threads
         context_dict['subject']= subject
     except Subject.DoesNotExist:
@@ -151,6 +151,11 @@ def user_login(request):
             return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, 'erudito/login.html')
+    
+
+@login_required
+def my_account(request):
+    return render(request, 'erudito/my_account.html')
 
 @login_required
 def restricted(request):

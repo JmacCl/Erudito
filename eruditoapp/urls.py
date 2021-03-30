@@ -20,6 +20,7 @@ urlpatterns= [path('about/', views.about, name='about'),
               path('login/', views.user_login, name='login'),
               path('restricted/', views.restricted, name='restricted'),
               path('logout/', views.user_logout, name='logout'),
+              path('my-account/', views.my_account, name='my_account'),
               # path('home/', views.home, name='home'),
 
               ]
