@@ -11,9 +11,16 @@
     {% if subjects %}
     <ul>
         {% for subject in subjects %}
-            <li> <a href="{% url 'eruditoapp:show_subject' subject.slug %}"> {{ subject.name }} </a> </li>
+            <p class="lead">
+                <a href="{% url 'eruditoapp:show_subject' subject.slug %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">{{ subject.name }}</a>
+            </p>
         {% endfor %}
     </ul>
     {% endif %}
 
 {% endblock %}
+
+
+{#Below is orginal display for subjects#}
+{#<li> <a href="{% url 'eruditoapp:show_subject' subject.slug %}"> {{ subject.name }} </a> </li>#}
+
