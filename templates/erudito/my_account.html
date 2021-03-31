@@ -7,5 +7,19 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1> User Account/My Account </h1>
+<div class="container"
+    <p> username: {{ user }}</p>
+    <p>email: {{ user.email }}</p>
+    <p>role: {{ user.userprofile.role }}</P>
+    <p>score: {{ user.userprofile.score}}</p>
+    <p>Profile Picure:</p>
+    <img src="{{ user.userprofile.picture.url }}" width="240">
+</div>
+
+<div class="container">
+  <p> user created threads <p>
+    {% for thread in threads %}
+        <li> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.score }} </a></li>
+    {% endfor %}
+</div>
 {% endblock %}

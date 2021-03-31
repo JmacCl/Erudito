@@ -13,7 +13,7 @@
     {% for thread in threads %}
         <li> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.score }} </a></li>
     {% endfor %}
-    
+
     <p><a href= "{% url 'eruditoapp:add_thread' subject.slug %}">Add Thread</a></p>
 
 {% endblock %}

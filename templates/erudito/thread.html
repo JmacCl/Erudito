@@ -9,7 +9,8 @@
 {% block body_block %}
     <div>
         <h1> {{ thread.title }} </h1>
-        {{ thread.body }}
+        <p> user {{ thread.user }}  ask's :
+        <br>{{ thread.body }}</p>
     </div>
     <div>
     <h1> Comments </h1>
