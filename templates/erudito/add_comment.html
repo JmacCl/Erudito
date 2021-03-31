@@ -1,0 +1,25 @@
+{% extends 'erudito/base.html' %}
+
+
+{% block title_block %}
+    Add comment to {{ thread.slug }}
+{% endblock %}
+
+{% block body_block %}
+    <h1> Add comment </h1>
+    <div> 
+        <form id="CommentForm" method="POST" action="{% url 'eruditoapp:add_comment' subject.slug thread.slug %}">
+            {% csrf_token %}
+            {% for field in form %}
+                    {{ field.errors }}
+                    {{ field.label_tag }} 
+                    <div>{{ field }}</div>
+                    <br>
+                    {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                    {% endif %}
+            {% endfor %}
+            <input type="submit" name="submit" value="Add comment" />
+        </form>
+    </div>
+{% endblock %}

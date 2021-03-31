@@ -24,5 +24,7 @@
         There are no comments yet.
     {% endif %}
     </div>
+    
+    <p> <a href="{% url 'eruditoapp:add_comment' subject.slug thread.slug %}"> Add Comment! </a></p>
 
 {% endblock %}

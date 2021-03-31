@@ -4,7 +4,7 @@ Created on Thu Feb  4 19:09:19 2021
 @author: mic5r
 """
 from django import forms
-from eruditoapp.models import Thread, Subject, UserProfile
+from eruditoapp.models import Thread, Subject, UserProfile, Comment
 from django.contrib.auth.models import User
 
 class SubjectForm(forms.ModelForm):
@@ -38,6 +38,12 @@ class ThreadForm(forms.ModelForm):
     #         cleaned_data['url']=url
     #     return cleaned_data
 
+class CommentForm(forms.ModelForm):
+    body= forms.CharField(max_length=Comment.BODY_MAX_LENGTH, widget=forms.Textarea(attrs={'style' : 'height: 5em; width: 20em;'}))
+    class Meta:
+        model= Comment
+        fields= ('body',)
+    
 class UserForm(forms.ModelForm):
     password= forms.CharField(widget= forms.PasswordInput())
 

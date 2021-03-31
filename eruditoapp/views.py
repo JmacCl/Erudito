@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
 from eruditoapp.models import Subject, Thread, Comment, User
-from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm
+from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm, CommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
@@ -113,6 +113,43 @@ def add_thread(request, subject_name_slug):
     context_dict= {'form':form, 'subject': subject}
     return render(request, 'erudito/add_thread.html', context=context_dict)
 
+def add_comment(request, subject_name_slug, thread_name_slug):
+    try:
+        thread= Thread.objects.get(slug=thread_name_slug)
+        subject= Subject.objects.get(slug=subject_name_slug)
+    except Thread.DoesNotExist:
+        thread= None
+    except Subject.DoesNotExist:
+        subject= None
+    try:
+        user= request.user
+    except User.DoesNotExist:
+        user= None
+
+    if thread is None:
+        return redirect('/')
+    if user is None:
+        return redirect('/')
+    form= CommentForm()
+    if request.method=="POST":
+        form= CommentForm(request.POST)
+        if form.is_valid():
+                if thread:
+                    comment= form.save(commit=False)
+                    comment.thread= thread
+                    comment.score= 0
+                    comment.user= user
+                    comment.save()
+                    return redirect(reverse('eruditoapp:show_thread', kwargs={'subject_name_slug':
+                                                                           subject_name_slug, 'thread_name_slug':
+                                                                           thread_name_slug}))
+    
+                else:
+                    print(form.errors)
+    
+    context_dict= {'form':form, 'subject': subject, 'thread': thread}
+    return render(request, 'erudito/add_comment.html', context=context_dict)
+    
 def register(request):
     registered= False
     if request.method == 'POST':
