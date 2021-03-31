@@ -67,7 +67,7 @@ def show_subject(request, subject_name_slug):
 
 def show_thread(request, subject_name_slug, thread_name_slug):
     context_dict={}
-    try: 
+    try:
         subject= Subject.objects.get(slug=subject_name_slug)
         thread= Thread.objects.get(slug=thread_name_slug)
         comments= Comment.objects.filter(thread=thread)
@@ -151,7 +151,7 @@ def user_login(request):
             return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, 'erudito/login.html')
-    
+
 
 @login_required
 def my_account(request):

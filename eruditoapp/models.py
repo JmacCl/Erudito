@@ -40,7 +40,7 @@ class Thread(models.Model):
 
     def __str__(self):
         return self.title
-        
+
 class Comment(models.Model):
     BODY_MAX_LENGTH= 10000
     thread= models.ForeignKey(Thread, on_delete= models.CASCADE)
@@ -48,10 +48,10 @@ class Comment(models.Model):
     score= models.IntegerField(default=0)
     date= models.DateTimeField(auto_now_add=True)
     user= models.ForeignKey(User, on_delete= models.CASCADE)
-    
+
     def __str__(self):
         return self.body[:25] #returns first 25 characters of string
-    
+
 
 
 class UserProfile(models.Model):
@@ -65,7 +65,7 @@ class UserProfile(models.Model):
         ('student',"Student"))
     role=models.CharField(max_length=10,choices=USER_ROLES,default="student")
 
-    score= models.IntegerField()
+    score= models.IntegerField(default=0)
 
 
     def __str__(self):
