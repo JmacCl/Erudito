@@ -1,4 +1,4 @@
-{% extends 'erudito/old-base.html' %}
+{% extends 'erudito/base.html' %}
 {% load staticfiles %}
 
 {% block title_block %}
@@ -11,7 +11,7 @@
 <strong>thank you for registering!</strong>
 <a href="{% url 'eruditoapp:home' %}">Return to the homepage.</a><br />
 {% else %}
-Rango says: <strong>register here!</strong><br />
+<strong>Register here!</strong><br />
 <form id="user_form" method="post" action="{% url 'eruditoapp:register' %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ user_form.as_p }}
