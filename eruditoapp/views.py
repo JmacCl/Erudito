@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
-from eruditoapp.models import Subject, Thread, Comment
+from eruditoapp.models import Subject, Thread, Comment, User
 from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -85,9 +85,15 @@ def add_thread(request, subject_name_slug):
         subject= Subject.objects.get(slug=subject_name_slug)
     except Subject.DoesNotExist:
         subject= None
+    try:
+        user= request.user
+    except User.DoesNotExist:
+        user= None
 
     if subject is None:
-        return redirect('/erudito/')
+        return redirect('/')
+    if user is None:
+        return redirect('/')
 
     form= ThreadForm()
     if request.method=="POST":
@@ -96,7 +102,8 @@ def add_thread(request, subject_name_slug):
             if subject:
                 thread= form.save(commit=False)
                 thread.subject = subject
-                thread.views= 0
+                thread.score= 0
+                thread.user= user
                 thread.save()
                 return redirect(reverse('eruditoapp:show_subject', kwargs={'subject_name_slug':
                                                                        subject_name_slug}))
