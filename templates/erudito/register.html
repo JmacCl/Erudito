@@ -9,7 +9,7 @@
 <h1>Register for Erudito</h1>
 {% if registered %}
 <strong>thank you for registering!</strong>
-<a href="{% url 'eruditoapp:home' %}">Return to the homepage.</a><br />
+<a href="{% url 'eruditoapp:login' %}">Login</a><br />
 {% else %}
 <strong>Register here!</strong><br />
 <form id="user_form" method="post" action="{% url 'eruditoapp:register' %}" enctype="multipart/form-data">
