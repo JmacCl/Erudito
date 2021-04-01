@@ -47,6 +47,7 @@ class Comment(models.Model):
     body= models.CharField(max_length= BODY_MAX_LENGTH, default="")
     score= models.IntegerField(default=0)
     date= models.DateTimeField(auto_now_add=True)
+    # likes = models.IntegerField(default=0)
     user= models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):

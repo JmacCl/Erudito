@@ -18,6 +18,18 @@
     <ul>
         {% for comment in comments %}
             <li class="row"> {{ comment.user }} -- {{ comment.body }} -- {{ comment.score }} </li>
+            <div>
+                <strong id="like_count">{{ thread.likes }}</strong> likes
+                {#                {% if user.is_authenticated %}#}
+                <button id="like_btn"
+                        data-commentid=" {{ comment.id }}"
+                        class="btn btn-primary btn-sm"
+                        type="button">
+                    <span data-feather="thumbs-up"></span>
+                    Like Comment
+                </button>
+                {#                {% endif %}#}
+            </div>
         {% endfor %}
     </ul>
     {% else %}

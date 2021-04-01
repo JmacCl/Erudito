@@ -40,6 +40,7 @@ class ThreadForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     body= forms.CharField(max_length=Comment.BODY_MAX_LENGTH, widget=forms.Textarea(attrs={'style' : 'height: 5em; width: 20em;'}))
+    # likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     class Meta:
         model= Comment
         fields= ('body',)
