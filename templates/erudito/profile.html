@@ -3,17 +3,19 @@
 
 
 {% block title_block %}
-    My Account
+    {% if ouser %}
+        {{ ouser }}
+    {% endif %}
 {% endblock %}
 
 {% block body_block %}
 <div class="container"
-    <p> username: {{ user }}</p>
-    <p>email: {{ user.email }}</p>
-    <p>role: {{ user.userprofile.role }}</P>
-    <p>score: {{ user.userprofile.score}}</p>
+    <p> username: {{ ouser }}</p>
+    <p>email: {{ ouser.email }}</p>
+    <p>role: {{ ouser.userprofile.role }}</P>
+    <p>score: {{ ouser.userprofile.score}}</p>
     <p>Profile Picure: </p>
-    <img src="{{ user.userprofile.picture.url }}" width="240">
+    <img src="{{ ouser.userprofile.picture.url }}" width="240">
 </div>
 
 <div class="container">
