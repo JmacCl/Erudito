@@ -9,7 +9,7 @@
 {% block body_block %}
     <div>
         <h1> {{ thread.title }} </h1>
-        <p> Include profile picture here <a href= "{% url 'eruditoapp:user' thread.user %}">{{ thread.user }} </a> ask's : </p>
+        <p> (Include profile picture here) <a href= "{% url 'eruditoapp:user' thread.user %}">{{ thread.user }} </a> ask's : </p>
         <p>{{ thread.body }}</p>
     </div>
     <div>
@@ -24,7 +24,9 @@
                 <button id="like_btn"
                         data-commentid=" {{ comment.id }}"
                         class="btn btn-primary btn-sm"
-                        type="button">
+                        type="button"
+                        title="Like">
+
                     <span data-feather="thumbs-up"></span>
 
                 </button>
