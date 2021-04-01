@@ -9,7 +9,7 @@
 {% block body_block %}
     <div>
         <h1> {{ thread.title }} </h1>
-        <p> user {{ thread.user }}  ask's :
+        <p> {{ thread.user }}  ask's :
         <br>{{ thread.body }}</p>
     </div>
     <div>
@@ -17,14 +17,18 @@
     {% if comments %}
     <ul>
         {% for comment in comments %}
-            <li class="row"> {{ comment.body }} -- {{ comment.score }} </li>
+            <li class="row"> {{ comment.user }} -- {{ comment.body }} -- {{ comment.score }} </li>
         {% endfor %}
     </ul>
     {% else %}
         There are no comments yet.
     {% endif %}
     </div>
-    
+    {% if user.is_authenticated %}
     <p> <a href="{% url 'eruditoapp:add_comment' subject.slug thread.slug %}"> Add Comment! </a></p>
-
+    {% else %}
+    <br></br>
+    <p> To create a comment you must <a href= "{% url 'eruditoapp:login' %}">Login</a></p>
+    <p> Don't have an account <a href= "{% url 'eruditoapp:register' %}">Sign Up</a></p>
+    {% endif %}
 {% endblock %}

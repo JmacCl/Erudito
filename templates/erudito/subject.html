@@ -13,7 +13,11 @@
     {% for thread in threads %}
         <li> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.score }} </a></li>
     {% endfor %}
-
+    {% if user.is_authenticated %}
     <p><a href= "{% url 'eruditoapp:add_thread' subject.slug %}">Add Thread</a></p>
-
+    {% else %}
+    <br></br>
+    <p> To create a thread you must <a href= "{% url 'eruditoapp:login' %}">Login</a></p>
+    <p> Don't have an account <a href= "{% url 'eruditoapp:register' %}">Sign Up</a></p>
+    {% endif %}
 {% endblock %}
