@@ -145,13 +145,13 @@ def add_comment(request, subject_name_slug, thread_name_slug):
                     return redirect(reverse('eruditoapp:show_thread', kwargs={'subject_name_slug':
                                                                            subject_name_slug, 'thread_name_slug':
                                                                            thread_name_slug}))
-    
+
                 else:
                     print(form.errors)
-    
+
     context_dict= {'form':form, 'subject': subject, 'thread': thread}
     return render(request, 'erudito/add_comment.html', context=context_dict)
-    
+
 def register(request):
     registered= False
     if request.method == 'POST':
@@ -216,6 +216,15 @@ class LikeCommentView(View):
 @login_required
 def my_account(request):
     return render(request, 'erudito/my_account.html')
+
+def show_user(request, user_name_slug):
+    context_dict={}
+    try:
+        user = User.objects.get(username=user_name_slug)
+        context_dict['ouser']= user
+    except Subject.DoesNotExist:
+        context_dict['user']= None
+    return render(request, 'erudito/profile.html', context=context_dict)
 
 @login_required
 def restricted(request):
