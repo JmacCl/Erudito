@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views import View
 from eruditoapp.models import Subject, Thread, Comment, User
 from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm, CommentForm
 from django.contrib.auth import authenticate, login, logout
@@ -196,6 +198,20 @@ def user_login(request):
     else:
         return render(request, 'erudito/login.html')
 
+
+class LikeCommentView(View):
+    # @method_decorator(login_required)
+    def get(self, request):
+        comment_id = request.GET['comment_id']
+        try:
+            comment = Comment.objects.get(id=int(comment_id))
+        except Comment.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+        comment.likes = comment.likes + 1
+        comment.save()
+        return HttpResponse(comment.likes)
 
 @login_required
 def my_account(request):
