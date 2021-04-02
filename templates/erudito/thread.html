@@ -9,7 +9,7 @@
 {% block body_block %}
     <div>
         <h1> {{ thread.title }} </h1>
-        <p> (Include profile picture here) <a href= "{% url 'eruditoapp:user' thread.user %}">{{ thread.user }} </a> ask's : </p>
+        <p><img src="{{ thread.user.userprofile.picture.url }}" width="40"> <a href= "{% url 'eruditoapp:user' thread.user %}">{{ thread.user }} </a> ask's : </p>
         <p>{{ thread.body }}</p>
     </div>
     <div>
@@ -17,7 +17,7 @@
     {% if comments %}
     <ul>
         {% for comment in comments %}
-            <li class="row"><a href= "{% url 'eruditoapp:user' comment.user %}">{{ comment.user }} </a> <p>  {{ comment.body }}  </p> </li>
+            <p><img src="{{ comment.user.userprofile.picture.url }}" width="40"><a href= "{% url 'eruditoapp:user' comment.user %}">{{ comment.user }} </a> <p>  {{ comment.body }}  </p> </p>
             <div>
                 <strong id="like_count">{{ comment.score }}</strong> likes
                 {#                {% if user.is_authenticated %}#}
@@ -30,6 +30,7 @@
                     <span data-feather="thumbs-up"></span>
 
                 </button>
+                <br></br>
                 {#                {% endif %}#}
             </div>
         {% endfor %}

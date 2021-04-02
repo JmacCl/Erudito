@@ -215,7 +215,10 @@ class LikeCommentView(View):
 
 @login_required
 def my_account(request):
-    return render(request, 'erudito/my_account.html')
+    context_dict={}
+    threads= Thread.objects.filter(user=request.user)
+    context_dict['threads']= threads
+    return render(request, 'erudito/my_account.html', context=context_dict)
 
 
 def show_user(request, user_name_slug):
