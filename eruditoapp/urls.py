@@ -26,7 +26,7 @@ urlpatterns= [path('about/', views.about, name='about'),
                    views.add_comment, name="add_comment"),
               # path('home/', views.home, name='home'),
                #Below is the url map for comment likes
-               path('like_comment/', views.LikeCommentView.as_view(), name = 'like_category'),
+               path('like_comment/', views.LikeCommentView.as_view(), name = 'like_comment'),
                path('user/<slug:user_name_slug>/', views.show_user,
                     name= 'user'),
 

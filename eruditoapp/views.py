@@ -215,7 +215,7 @@ class LikeCommentView(View):
             return HttpResponse(-1)
         comment.score = comment.score + 1
         comment.save()
-        return HttpResponse(comment.likes)
+        return HttpResponse(comment.score)
 
 @login_required
 def my_account(request):
