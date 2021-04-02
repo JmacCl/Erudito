@@ -40,3 +40,7 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+.register-link{
+    font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+}

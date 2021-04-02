@@ -209,7 +209,7 @@ class LikeCommentView(View):
             return HttpResponse(-1)
         except ValueError:
             return HttpResponse(-1)
-        comment.likes = comment.likes + 1
+        comment.score = comment.score + 1
         comment.save()
         return HttpResponse(comment.likes)
 
