@@ -217,13 +217,17 @@ class LikeCommentView(View):
 def my_account(request):
     return render(request, 'erudito/my_account.html')
 
+
 def show_user(request, user_name_slug):
     context_dict={}
     try:
         user = User.objects.get(username=user_name_slug)
         context_dict['ouser']= user
+        threads= Thread.objects.filter(user=user)
+        context_dict['threads']= threads
     except Subject.DoesNotExist:
-        context_dict['user']= None
+        context_dict['ouser']= None
+        context_dict['threads'] = None
     return render(request, 'erudito/profile.html', context=context_dict)
 
 @login_required

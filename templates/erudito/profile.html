@@ -21,7 +21,7 @@
 <div class="container">
   <p> user created threads <p>
     {% for thread in threads %}
-        <li> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.score }} </a></li>
+        <li> <a href="{% url 'eruditoapp:show_thread' thread.subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.subject }} </a></li>
     {% endfor %}
 </div>
 {% endblock %}
