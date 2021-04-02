@@ -167,6 +167,8 @@ def register(request):
 
             if 'picture' in request.FILES:
                 profile.picture= request.FILES['picture']
+            else:
+                profile.picture= 'Default.jpg'
             profile.save()
             registered = True
 

@@ -58,7 +58,7 @@ class Comment(models.Model):
 class UserProfile(models.Model):
     MAX_LENGTH= 64
     user= models.OneToOneField(User, on_delete= models.CASCADE)
-    picture= models.ImageField(upload_to='profile_images', default='default.jpg', blank=True)
+    picture= models.ImageField(upload_to='profile_images', default='Default.jpg', blank=True)
     # fullname=models.CharField(max_length= MAX_LENGTH)
     # email= models.EmailField() provided by Django User as fields
 
