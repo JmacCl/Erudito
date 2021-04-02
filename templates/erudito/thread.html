@@ -17,7 +17,7 @@
     {% if comments %}
     <ul>
         {% for comment in comments %}
-            <li class="row"><a href= "{% url 'eruditoapp:user' comment.user %}">{{ comment.user }} </a>  -- {{ comment.body }} -- {{ comment.score }} </li>
+            <li class="row"><a href= "{% url 'eruditoapp:user' comment.user %}">{{ comment.user }} </a> <p>  {{ comment.body }}  </p> </li>
             <div>
                 <strong id="like_count">{{ thread.likes }}</strong> likes
                 {#                {% if user.is_authenticated %}#}
