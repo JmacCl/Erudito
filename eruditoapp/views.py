@@ -4,10 +4,11 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from eruditoapp.models import Subject, Thread, Comment, User
-from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm, CommentForm
-from django.contrib.auth import authenticate, login, logout
+from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm, CommentForm, EditProfileForm
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.contrib.auth.forms import PasswordChangeForm
 # Create your views here.
 
 
@@ -245,3 +246,28 @@ def restricted(request):
 def user_logout(request):
     logout(request)
     return redirect(reverse('eruditoapp:about'))
+
+def edit_profile(request):
+    if request.method =='POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            return redirect('eruditoapp:my_account')
+    else:
+        form = EditProfileForm(instance=request.user)
+        args = {'form': form}
+        return render(request,'erudito/edit_profile.html', args)
+
+def change_password(request):
+    if request.method =='POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect('eruditoapp:my_account')
+    else:
+        form = PasswordChangeForm(user=request.user)
+        args = {'form': form}
+        return render(request,'erudito/change_password.html', args)
