@@ -16,11 +16,13 @@
     <h1> Comments </h1>
     {% if comments %}
     <ul>
-        {% for comment in comments %}
+        {# % for comment in comments % #}
+        {% for comment, vote in votes %}
             <p><img src="{{ comment.user.userprofile.picture.url }}" width="40" height="40"><a href= "{% url 'eruditoapp:user' comment.user %}">{{ comment.user }} </a> <p>  {{ comment.body }} </p> </p>
             <div>
                 <strong id="like_count">{{ comment.score }}</strong> likes
                 {% if user.is_authenticated %}
+                {% if vote %}
                 <button id="like_btn"
                         data-commentid="{{ comment.id }}"
                         class="btn btn-primary btn-sm"
@@ -30,6 +32,7 @@
 
                 </button>
                 <br></br>
+                {% endif %}
                 {% endif %}
             </div>
         {% endfor %}

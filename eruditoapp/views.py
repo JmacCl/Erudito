@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from eruditoapp.models import Subject, Thread, Comment, User
+from eruditoapp.models import Subject, Thread, Comment, User, Vote
 from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm, CommentForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -73,9 +73,18 @@ def show_thread(request, subject_name_slug, thread_name_slug):
         subject= Subject.objects.get(slug=subject_name_slug)
         thread= Thread.objects.get(slug=thread_name_slug)
         comments= Comment.objects.filter(thread=thread)
+        # votes= Vote.objects.all()
+        votes_map= []
+        for comment in comments:
+            if Vote.objects.filter(comment=comment, user=request.user).exists():
+                votes_map.append(False)
+            else:
+                votes_map.append(True)
+        comment_votes= zip(comments, votes_map)
         context_dict['subject']= subject
         context_dict['thread']= thread
         context_dict['comments']= comments
+        context_dict['votes'] = comment_votes
     except Thread.DoesNotExist:
         context_dict['thread']= None
         context_dict['comments']= None
@@ -215,6 +224,8 @@ class LikeCommentView(View):
             return HttpResponse(-1)
         comment.score = comment.score + 1
         comment.save()
+        vote = Vote(user=request.user, comment=comment)
+        vote.save()
         return HttpResponse(comment.score)
 
 @login_required
