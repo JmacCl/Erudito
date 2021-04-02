@@ -6169,9 +6169,9 @@ textarea.form-control-lg{
 /*.bg-body{*/
 /*    background-color:#fff!important*/
 /*}*/
-/*.bg-white{*/
-/*    background-color:#fff!important*/
-/*}*/
+.bg-white{
+    background-color: white;!important
+}
 .bg-transparent{
     background-color:transparent!important
 }

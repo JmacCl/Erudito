@@ -72,6 +72,21 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+
+#Model for useful resources page
+class UsefulResource(models.Model):
+
+    BODY_MAX_LENGTH= 10000
+    subject= models.ForeignKey(Subject, on_delete= models.CASCADE)
+    body= models.CharField(max_length=BODY_MAX_LENGTH, default="")
+
+    def save(self, *args, **kwargs):
+        super(UsefulResource, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self
+
+
 class Vote(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
     comment= models.ForeignKey(Comment, on_delete=models.CASCADE)

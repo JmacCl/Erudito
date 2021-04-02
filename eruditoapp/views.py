@@ -214,7 +214,7 @@ def user_login(request):
 
 
 class LikeCommentView(View):
-    # @method_decorator(login_required)
+    @method_decorator(login_required)
     def get(self, request):
         comment_id = request.GET['comment_id']
         try:
