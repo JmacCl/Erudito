@@ -11,7 +11,7 @@
 {% block body_block %}
 
     {% for thread in threads %}
-        <li> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.score }} </a></li>
+        <li>{{ thread.title }} <button class="btn btn-sm" type="button"> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"><span data-feather="plus-circle"></span> </a> </button></li>
     {% endfor %}
 
     {% if user.is_authenticated %}
@@ -23,3 +23,6 @@
     <p> Don't have an account <a href= "{% url 'eruditoapp:register' %}">Sign Up</a></p>
     {% endif %}
 {% endblock %}
+
+
+{#<li> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.score }} </a></li>#}

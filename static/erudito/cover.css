@@ -52,7 +52,12 @@ body {
     border-bottom-color: #fff;
 }
 
-.subject-header{
+#subject-header{
     size: 300px;
     font-weight: bold;
 }
+.button-thread{
+    border-radius: 50px;
+}
+
+
