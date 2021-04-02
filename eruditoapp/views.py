@@ -184,6 +184,7 @@ def register(request):
                                                             'registered': registered})
 
 def user_login(request):
+    context_dict={}
     if request.method == 'POST':
         username= request.POST.get('username')
         password= request.POST.get('password')
@@ -193,10 +194,11 @@ def user_login(request):
                 login(request, user)
                 return redirect(reverse('eruditoapp:about'))
             else:
-                return HttpResponse("Your account is disabled.")
+                context_dict['message']="Your account is disabled."
+                return render(request, 'erudito/login.html',context=context_dict)
         else:
-            print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
+            context_dict['message']="invalid login details supplied."
+            return render(request, 'erudito/login.html',context=context_dict)
     else:
         return render(request, 'erudito/login.html')
 
