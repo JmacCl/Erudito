@@ -95,6 +95,7 @@ class Vote(models.Model):
     def __str__(self):
         return self.user.username + self.comment.body[:25]
 
+
 class ThreadVote(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
     thread= models.ManyToManyField(Thread)

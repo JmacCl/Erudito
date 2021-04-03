@@ -61,17 +61,21 @@ def show_subject(request, subject_name_slug):
     try:
         subject= Subject.objects.get(slug=subject_name_slug)
         threads= Thread.objects.filter(subject=subject).order_by('-score') #unchecked if works or not, could test after break by creating more in population script
-        votes_map=[]
-        for thread in threads:
-            if ThreadVote.objects.filter(thread=thread, user=request.user).exists():
-                votes_map.append(False)
-            else:
-                votes_map.append(True)
+        
+        if request.user.is_authenticated:
+            votes_map=[]
+            for thread in threads:
+                if ThreadVote.objects.filter(thread=thread, user=request.user).exists():
+                    votes_map.append(False)
+                else:
+                    votes_map.append(True)
+            thread_votes= zip(threads, votes_map)
+            context_dict['votes']= thread_votes
 
-        thread_votes= zip(threads, votes_map)
+        
         context_dict['threads']= threads
         context_dict['subject']= subject
-        context_dict['votes']= thread_votes
+        
     except Subject.DoesNotExist:
         context_dict['threads']= None
         context_dict['subject']= None
@@ -84,17 +88,20 @@ def show_thread(request, subject_name_slug, thread_name_slug):
         thread= Thread.objects.get(slug=thread_name_slug)
         comments= Comment.objects.filter(thread=thread)
         # votes= Vote.objects.all()
-        votes_map= []
-        for comment in comments:
-            if Vote.objects.filter(comment=comment, user=request.user).exists():
-                votes_map.append(False)
-            else:
-                votes_map.append(True)
-        comment_votes= zip(comments, votes_map)
+        if request.user.is_authenticated:
+            votes_map= []
+            for comment in comments:
+                if Vote.objects.filter(comment=comment, user=request.user).exists():
+                    votes_map.append(False)
+                else:
+                    votes_map.append(True)
+            comment_votes= zip(comments, votes_map)        
+            context_dict['votes'] = comment_votes
+        
         context_dict['subject']= subject
         context_dict['thread']= thread
         context_dict['comments']= comments
-        context_dict['votes'] = comment_votes
+
     except Thread.DoesNotExist:
         context_dict['thread']= None
         context_dict['comments']= None
