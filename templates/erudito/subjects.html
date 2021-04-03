@@ -13,7 +13,7 @@
     {% if subjects %}
     <ul>
         {% for subject in subjects %}
-            <button class="btn btn-lg btn-secondary fw-bold border-white bg-white"><a href="{% url 'eruditoapp:show_subject' subject.slug %}" >{{ subject.name }}</a></button>
+            <button class="btn btn-lg btn-secondary fw-bold border-white bg-white"><a class=" button-subject-color" href="{% url 'eruditoapp:show_subject' subject.slug %}" >{{ subject.name }}</a></button>
         {% endfor %}
     </ul>
     {% endif %}
