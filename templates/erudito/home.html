@@ -15,7 +15,7 @@
         <p> Our most popular categories</p>
         {% if subjects %}
             {% for subject in subjects %}
-                <p class="lead"> <a href="{% url 'eruditoapp:show_subject' subject.slug %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white"> {{ subject.name }} </a> </p>
+                <button class="btn btn-lg btn-secondary fw-bold border-white bg-white"><a href="{% url 'eruditoapp:show_subject' subject.slug %}" >{{ subject.name }}</a></button>
             {% endfor %}
         {% endif %}
     </main>

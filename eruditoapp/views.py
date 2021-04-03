@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from eruditoapp.models import Subject, Thread, Comment, User
+from eruditoapp.models import Subject, Thread, Comment, User,  Vote, ThreadVote
 from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm, CommentForm, EditProfileForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -61,8 +61,17 @@ def show_subject(request, subject_name_slug):
     try:
         subject= Subject.objects.get(slug=subject_name_slug)
         threads= Thread.objects.filter(subject=subject).order_by('-score') #unchecked if works or not, could test after break by creating more in population script
+        votes_map=[]
+        for thread in threads:
+            if ThreadVote.objects.filter(thread=thread, user=request.user).exists():
+                votes_map.append(False)
+            else:
+                votes_map.append(True)
+
+        thread_votes= zip(threads, votes_map)
         context_dict['threads']= threads
         context_dict['subject']= subject
+        context_dict['votes']= thread_votes
     except Subject.DoesNotExist:
         context_dict['threads']= None
         context_dict['subject']= None
@@ -225,9 +234,31 @@ class LikeCommentView(View):
             return HttpResponse(-1)
         comment.score = comment.score + 1
         comment.save()
-        vote = Vote(user=request.user, comment=comment)
+        vote = Vote(user=request.user)
         vote.save()
+        # vote.user.add(request.user)
+        vote.comment.add(comment)
+        
         return HttpResponse(comment.score)
+    
+class LikeThreadView(View):
+    # @method_decorator(login_required)
+    def get(self, request):
+        thread_id = request.GET['thread_id']
+        try:
+            thread = Thread.objects.get(id=int(thread_id))
+        except Thread.DoesNotExist:
+            return HttpResponse(-1)
+        except ValueError:
+            return HttpResponse(-1)
+        thread.score = thread.score + 1
+        thread.save()
+        vote = ThreadVote(user= request.user)
+        vote.save()
+        # vote.user.add(request.user)
+        vote.thread.add(thread)
+        
+        return HttpResponse(thread.score)
 
 @login_required
 def my_account(request):

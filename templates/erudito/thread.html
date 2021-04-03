@@ -20,12 +20,12 @@
         {% for comment, vote in votes %}
             <p><img src="{{ comment.user.userprofile.picture.url }}" width="40" height="40"><a href= "{% url 'eruditoapp:user' comment.user %}">{{ comment.user }} </a> <p>  {{ comment.body }} </p> </p>
             <div>
-                <strong id="like_count">{{ comment.score }}</strong> likes
+                <strong id="like_count{{ comment.id }}">{{ comment.score }}</strong> likes
                 {% if user.is_authenticated %}
                 {% if vote %}
-                <button id="like_btn"
+                <button id="like_btn{{ comment.id }}"
                         data-commentid="{{ comment.id }}"
-                        class="btn btn-primary btn-sm"
+                        class="comment_like_btn btn btn-primary btn-sm"
                         type="button">
 
                     <span data-feather="thumbs-up"></span>

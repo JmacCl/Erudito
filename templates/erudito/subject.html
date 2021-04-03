@@ -10,8 +10,25 @@
 
 {% block body_block %}
 
-    {% for thread in threads %}
-        <li>{{ thread.title }} <button class="btn btn-sm" type="button"> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"><span data-feather="plus-circle"></span> </a> </button></li>
+    {# % for thread in threads % #}
+    {% for thread, vote in votes %}
+    <div>
+    <li>{{ thread.title }} <button class="btn btn-sm" type="button"> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"><span data-feather="plus-circle"></span> </a> </button></li>
+                <strong id="like_count{{ thread.id }}">{{ thread.score }}</strong> likes
+                {% if user.is_authenticated %}
+                {% if vote %}
+                <button id= "threadbtn{{ thread.id }}"
+                        data-threadid="{{ thread.id }}"
+                        class="thread_like_btn btn btn-primary btn-sm"
+                        type="button">
+
+                    <span data-feather="thumbs-up"></span>
+
+                </button>
+                <br></br>
+                {% endif %}
+                {% endif %}
+    </div>
     {% endfor %}
 
     {% if user.is_authenticated %}
