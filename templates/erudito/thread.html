@@ -9,7 +9,7 @@
 {% block body_block %}
     <div>
         <h1> {{ thread.title }} </h1>
-        <p><img src="{{ thread.user.userprofile.picture.url }}" width="40" height="40"> <a href= "{% url 'eruditoapp:user' thread.user %}">{{ thread.user }} </a> ask's : </p>
+        <p><img src="{{ thread.user.userprofile.picture.url }}" width="40" height="40"> <a href= "{% url 'eruditoapp:user' thread.user %}">{{ thread.user }} </a> asks : </p>
         <p>{{ thread.body }}</p>
     </div>
     <div>

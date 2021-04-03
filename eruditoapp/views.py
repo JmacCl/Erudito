@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from eruditoapp.models import Subject, Thread, Comment, User,  Vote, ThreadVote
+from eruditoapp.models import Subject, Thread, Comment, User,  Vote, ThreadVote, UserProfile
 from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm, CommentForm, EditProfileForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -239,6 +239,13 @@ class LikeCommentView(View):
             return HttpResponse(-1)
         except ValueError:
             return HttpResponse(-1)
+        user= comment.user
+        try:
+            userprof= UserProfile.objects.get(user=user) 
+            userprof.score= userprof.score +1
+            userprof.save()
+        except UserProfile.DoesNotExist:
+            userprof=None
         comment.score = comment.score + 1
         comment.save()
         vote = Vote(user=request.user)
@@ -260,6 +267,14 @@ class LikeThreadView(View):
             return HttpResponse(-1)
         thread.score = thread.score + 1
         thread.save()
+        user= thread.user
+        try:
+            userprof= UserProfile.objects.get(user=user) 
+            userprof.score= userprof.score +1
+            userprof.save()
+        except UserProfile.DoesNotExist:
+            userprof=None
+           
         vote = ThreadVote(user= request.user)
         vote.save()
         # vote.user.add(request.user)
