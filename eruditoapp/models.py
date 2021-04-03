@@ -74,8 +74,14 @@ class UserProfile(models.Model):
 
 class Vote(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
-    comment= models.ForeignKey(Comment, on_delete=models.CASCADE)
+    comment= models.ManyToManyField(Comment)
     #possibly add a boolean has_voted
     
     def __str__(self):
         return self.user.username + self.comment.body[:25]
+
+class ThreadVote(models.Model):
+    user= models.ForeignKey(User, on_delete=models.CASCADE)
+    thread= models.ManyToManyField(Thread)
+    def __str__(self):
+        return self.user.username + self.thread.body[:25]
