@@ -58,7 +58,7 @@ class Comment(models.Model):
 class UserProfile(models.Model):
     MAX_LENGTH= 64
     user= models.OneToOneField(User, on_delete= models.CASCADE)
-    picture= models.ImageField(upload_to='profile_images', default='Default.jpg', blank=True)
+    picture= models.ImageField(upload_to='profile_images', default='Default.jpg', blank=False)
     # fullname=models.CharField(max_length= MAX_LENGTH)
     # email= models.EmailField() provided by Django User as fields
 
@@ -91,12 +91,15 @@ class Vote(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
     comment= models.ManyToManyField(Comment)
     #possibly add a boolean has_voted
-    
+
     def __str__(self):
         return self.user.username + self.comment.body[:25]
+<<<<<<< HEAD
+=======
 
 class ThreadVote(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
     thread= models.ManyToManyField(Thread)
     def __str__(self):
         return self.user.username + self.thread.body[:25]
+>>>>>>> c4dca4293f49f4eb334e4a3549447922b8e8d6ed
