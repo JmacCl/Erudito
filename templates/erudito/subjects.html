@@ -7,16 +7,19 @@
 {% endblock %}
 
 {% block body_block %}
+
+    <p id="subject-header">Our available subjects</p>
     
     {% if subjects %}
     <ul>
         {% for subject in subjects %}
-            <p class="lead">
-                <a href="{% url 'eruditoapp:show_subject' subject.slug %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">{{ subject.name }}</a>
-            </p>
+            <button class="btn btn-lg btn-secondary fw-bold border-white bg-white"><a href="{% url 'eruditoapp:show_subject' subject.slug %}" >{{ subject.name }}</a></button>
         {% endfor %}
     </ul>
     {% endif %}
+
+    <br/>
+    Think we need to add more subjects? Email us at helpSupportErudito@gmail.com if you have any suggestions, we would love to hear them!
 
 {% endblock %}
 

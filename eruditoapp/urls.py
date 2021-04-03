@@ -22,13 +22,17 @@ urlpatterns= [path('about/', views.about, name='about'),
               path('logout/', views.user_logout, name='logout'),
               path('my-account/', views.my_account, name='my_account'),
               path('register/', views.register, name='register'),
+              path('my-account/edit', views.edit_profile, name='edit'),
                path("subject/<slug:subject_name_slug>/thread/<slug:thread_name_slug>/add_comment",
                    views.add_comment, name="add_comment"),
+
               # path('home/', views.home, name='home'),
                #Below is the url map for comment likes
                path('like_comment/', views.LikeCommentView.as_view(), name = 'like_comment'),
                path('like_thread/', views.LikeThreadView.as_view(), name='like_thread'),
                path('user/<slug:user_name_slug>/', views.show_user,
                     name= 'user'),
+                path('my-account/password', views.change_password, name='password'),
+
 
               ]

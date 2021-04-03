@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'erudito/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block title_block %}
+    {% if subject %}
+        Useful Resources for {{ subject.name }}
+    {% endif %}
+{% endblock %}
+
+{% block body_block %}
+    Below are the Useful links for {{ subject.name }}:
+    {% for link in links %}
+
+    {% endfor %}
+{% endblock %}

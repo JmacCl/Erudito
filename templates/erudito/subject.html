@@ -12,8 +12,8 @@
 
     {# % for thread in threads % #}
     {% for thread, vote in votes %}
-        <li> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.score }} </a></li>
-        <div>
+    <div>
+    <li>{{ thread.title }} <button class="btn btn-sm" type="button"> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"><span data-feather="plus-circle"></span> </a> </button></li>
                 <strong id="like_count{{ thread.id }}">{{ thread.score }}</strong> likes
                 {% if user.is_authenticated %}
                 {% if vote %}
@@ -28,13 +28,18 @@
                 <br></br>
                 {% endif %}
                 {% endif %}
-            </div>
+    </div>
     {% endfor %}
+
     {% if user.is_authenticated %}
     <p><a href= "{% url 'eruditoapp:add_thread' subject.slug %}">Add Thread</a></p>
     {% else %}
-    <br></br>
+    <br/>
+        <p><a href= "useful-resources.html">Useful Resources</a></p>
     <p> To create a thread you must <a href= "{% url 'eruditoapp:login' %}">Login</a></p>
     <p> Don't have an account <a href= "{% url 'eruditoapp:register' %}">Sign Up</a></p>
     {% endif %}
 {% endblock %}
+
+
+{#<li> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.score }} </a></li>#}

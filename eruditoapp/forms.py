@@ -6,6 +6,7 @@ Created on Thu Feb  4 19:09:19 2021
 from django import forms
 from eruditoapp.models import Thread, Subject, UserProfile, Comment
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserChangeForm
 
 class SubjectForm(forms.ModelForm):
     name= forms.CharField(max_length=Subject.NAME_MAX_LENGTH, help_text="Please enter the category name.")
@@ -25,7 +26,7 @@ class ThreadForm(forms.ModelForm):
     class Meta:
         model= Thread
         fields= ('title', 'body',)
-    
+
     # def __init__(self, *args, **kwargs):
     #     self.user = kwargs.pop('user', None)
     #     super(ThreadForm, self).__init__(*args, **kwargs)
@@ -44,7 +45,7 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model= Comment
         fields= ('body',)
-    
+
 class UserForm(forms.ModelForm):
     password= forms.CharField(widget= forms.PasswordInput())
 
@@ -57,3 +58,13 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model= UserProfile
         fields= ('picture','role')
+
+class EditProfileForm(UserChangeForm):
+
+    class Meta:
+        model = User
+        fields = (
+        'email',
+        'username',
+        'password',
+        )
