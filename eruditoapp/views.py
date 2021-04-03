@@ -228,6 +228,10 @@ def user_login(request):
     else:
         return render(request, 'erudito/login.html')
 
+def useful_resources(request):
+    context_dict ={}
+    return render(request, 'erudito/useful-resources.html', context=context_dict)
+
 
 class LikeCommentView(View):
     @method_decorator(login_required)

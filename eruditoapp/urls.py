@@ -33,6 +33,8 @@ urlpatterns= [path('about/', views.about, name='about'),
                path('user/<slug:user_name_slug>/', views.show_user,
                     name= 'user'),
                 path('my-account/password', views.change_password, name='password'),
+              #Below is attempt at making useful_resources view
+               path('subject/<slug:subject_name_slug>/useful-resources',views.useful_resources, name ='useful_resources')
 
 
               ]

@@ -45,3 +45,6 @@ body {
     font-family: var(--bs-font-sans-serif);
 }
 
+.subject-text-colour{
+    color: #333333;
+}

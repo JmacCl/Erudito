@@ -15,7 +15,7 @@
         <p> Our most popular categories</p>
         {% if subjects %}
             {% for subject in subjects %}
-                <button class="btn btn-lg btn-secondary fw-bold border-white bg-white" onclick= "location.href= '{% url 'eruditoapp:show_subject' subject.slug %}'"><a href="{% url 'eruditoapp:show_subject' subject.slug %}" >{{ subject.name }}</a></button>
+                <button class="btn btn-lg btn-secondary fw-bold border-white bg-white" onclick= "location.href= '{% url 'eruditoapp:show_subject' subject.slug %}'"><a href="{% url 'eruditoapp:show_subject' subject.slug %}" class="subject-text-colour">{{ subject.name }}</a></button>
             {% endfor %}
         {% endif %}
     </main>

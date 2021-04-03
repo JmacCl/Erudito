@@ -73,12 +73,13 @@ class UserProfile(models.Model):
         return self.user.username
 
 
-#Model for useful resources page
+# Model for useful resources page
 class UsefulResource(models.Model):
 
     BODY_MAX_LENGTH= 10000
     subject= models.ForeignKey(Subject, on_delete= models.CASCADE)
     body= models.CharField(max_length=BODY_MAX_LENGTH, default="")
+
 
     def save(self, *args, **kwargs):
         super(UsefulResource, self).save(*args, **kwargs)

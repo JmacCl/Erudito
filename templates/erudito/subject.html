@@ -39,8 +39,9 @@
         
         <p> To create a thread or like you must <a href= "{% url 'eruditoapp:login' %}">log in</a></p>
         <p> Don't have an account? <a href= "{% url 'eruditoapp:register' %}">Sign Up</a></p>
-    {% endif %}    
-    <p><a href= "useful-resources.html">Useful Resources</a></p>
+    {% endif %}
+{#    Tried implementing useful resources below#}
+{#    <p><a href= "{% url 'eruditoapp:useful_resources' %}">Useful Resources</a></p>#}
 {% endblock %}
 
 
