@@ -58,7 +58,7 @@ class Comment(models.Model):
 class UserProfile(models.Model):
     MAX_LENGTH= 64
     user= models.OneToOneField(User, on_delete= models.CASCADE)
-    picture= models.ImageField(upload_to='profile_images', default='Default.jpg', blank=True)
+    picture= models.ImageField(upload_to='profile_images', default='Default.jpg', blank=False)
     # fullname=models.CharField(max_length= MAX_LENGTH)
     # email= models.EmailField() provided by Django User as fields
 
@@ -91,6 +91,6 @@ class Vote(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
     comment= models.ForeignKey(Comment, on_delete=models.CASCADE)
     #possibly add a boolean has_voted
-    
+
     def __str__(self):
         return self.user.username + self.comment.body[:25]
