@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('#like_btn').click(function (){
+    $('.comment_like_btn').click(function (){
         var commentIdVar;
         commentIdVar = $(this).attr('data-commentid');
         console.log('#'.concat('like_count_comm',commentIdVar))
@@ -7,8 +7,8 @@ $(document).ready(function() {
         $.get('/like_comment/',
             {'comment_id': commentIdVar},
             function (data){
-                $('#like_count').html(data);
-                $('#like_btn').hide();
+                $('#like_count'.concat(commentIdVar)).html(data);
+                $('#like_btn'.concat(commentIdVar)).hide();
             })
     });
     
