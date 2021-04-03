@@ -16,26 +16,31 @@
     <h1> Comments </h1>
     {% if comments %}
     <ul>
-        {# % for comment in comments % #}
-        {% for comment, vote in votes %}
-            <p><img src="{{ comment.user.userprofile.picture.url }}" width="40" height="40"><a href= "{% url 'eruditoapp:user' comment.user %}">{{ comment.user }} </a> <p>  {{ comment.body }} </p> </p>
-            <div>
-                <strong id="like_count{{ comment.id }}">{{ comment.score }}</strong> likes
-                {% if user.is_authenticated %}
-                {% if vote %}
-                <button id="like_btn{{ comment.id }}"
-                        data-commentid="{{ comment.id }}"
-                        class="comment_like_btn btn btn-primary btn-sm"
-                        type="button">
-
-                    <span data-feather="thumbs-up"></span>
-
-                </button>
-                <br></br>
-                {% endif %}
-                {% endif %}
-            </div>
-        {% endfor %}
+        {% if user.is_authenticated %}
+            {% for comment, vote in votes %}
+                <p><img src="{{ comment.user.userprofile.picture.url }}" width="40" height="40"><a href= "{% url 'eruditoapp:user' comment.user %}">{{ comment.user }} </a> <p>  {{ comment.body }} </p> </p>
+                <div>
+                    <strong id="like_count{{ comment.id }}">{{ comment.score }}</strong> likes
+                    {% if vote %}
+                    <button id="like_btn{{ comment.id }}"
+                            data-commentid="{{ comment.id }}"
+                            class="comment_like_btn btn btn-primary btn-sm"
+                            type="button">
+    
+                        <span data-feather="thumbs-up"></span>
+    
+                    </button>
+                    <br></br>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            {% for comment in comments %}
+                <p><img src="{{ comment.user.userprofile.picture.url }}" width="40" height="40"><a href= "{% url 'eruditoapp:user' comment.user %}">{{ comment.user }} </a> <p>  {{ comment.body }} </p> </p>
+                    <strong id="like_count{{ comment.id }}">{{ comment.score }}</strong> likes
+            {% endfor %}
+            
+        {% endif %}
     </ul>
     {% else %}
         There are no comments yet.
@@ -45,7 +50,7 @@
     <p> <a href="{% url 'eruditoapp:add_comment' subject.slug thread.slug %}"> Add Comment! </a></p>
     {% else %}
     <br/>
-    <p> To create a comment you must <a href= "{% url 'eruditoapp:login' %}">Login</a></p>
-    <p> Don't have an account <a href= "{% url 'eruditoapp:register' %}">Sign Up</a></p>
+    <p> To add a comment or like you must <a href= "{% url 'eruditoapp:login' %}">log in</a></p>
+    <p> Don't have an account? <a href= "{% url 'eruditoapp:register' %}">Sign Up</a></p>
     {% endif %}
 {% endblock %}
