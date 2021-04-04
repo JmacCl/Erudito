@@ -14,6 +14,8 @@ import datetime
 
 def populate_erudito():
     maths_thread_comments= [{"body": "u is used as one of the parts you want to substitute, and usually a polynomial expression is an ideal choice for u.",
+                             'date':datetime.datetime.now()},
+                            {"body": "You should try to use a polynomial expression for u, as this usually simplifies the integral.",
                              'date':datetime.datetime.now()}]
     maths_threads= [{'title':'How do I do integration by parts?',
                      'body':"I don't understand the substitution of u, can somebody help me?",
@@ -21,7 +23,7 @@ def populate_erudito():
                     'comments': maths_thread_comments}]
     physics_threads= [{'title':' Why is a photon "massless" ?',
                      'body':"",
-                    'date': datetime.datetime(2013, 7, 29)}]
+                    'date': datetime.datetime(2021, 4, 3)}]
     history_threads= [{'title':'Why did WW1 start?',
                      'body':"Apart from the assassination of Archduke Franz Ferdinand, what were other reasons for the start of WWI?",
                     'date': datetime.datetime.now()}]
@@ -81,9 +83,9 @@ def add_comment(thread, body, date, user, score=0):
 
 def add_user(username, password, role='Student', score=0):
     user= User.objects.create_user(username=username, password=password)
-    #user= UserProfile.objects.get_or_create(user_id=username, role=role)
-    #user.score= score
+    userprof= UserProfile.objects.create(user=user, role=role, score=score, picture= "Default.jpg")
     user.save()
+    userprof.save()
     return user
 
 
