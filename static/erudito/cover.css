@@ -64,11 +64,15 @@ body {
     color: #333333;
 }
 
+.subject-thread-presentation-title{
+    color: rgba(255, 255, 255, .5);
+}
 .subject-thread-presentation{
-    color: black;
-    /*background-color:#212520;*/
+    color: rgba(255, 255, 255, .5);
+    background-color:#212529;
 }
 .subject-thread-body{
     font-size: medium;
+    font-weight: normal;
 }
 
