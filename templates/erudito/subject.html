@@ -13,7 +13,7 @@
         {% for thread, vote in votes %}
         <div>
 {#        <li><a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}">{{ thread.title }} </a> </li>#}
-            <button class="btn btn-lg btn-secondary fw-bold border-white " onclick= "location.href= '{% url 'eruditoapp:show_thread' subject.slug thread.slug %}'" ><a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}" class="subject-thread-presentation" >{{ thread.title }}
+            <button class="btn btn-lg btn-secondary fw-bold border-white subject-thread-presentation " onclick= "location.href= '{% url 'eruditoapp:show_thread' subject.slug thread.slug %}'" ><a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}" class="subject-thread-presentation-title" >{{ thread.title }}
             <br><p class="subject-thread-body">{{ thread.body }}</p></a></button>
             <strong id="like_count_thread{{ thread.id }}">{{ thread.score }} </strong> likes
                     {% if vote %}
