@@ -14,6 +14,8 @@
     <p>score: {{ user.userprofile.score}}</p>
     <p>Profile Picure: </p>
     <img src="{{ user.userprofile.picture.url }}" width="240" height="240">
+    <br></br>
+    <button type="button"><a href={% url 'eruditoapp:edit' %}>edit profile</button>
 </div>
 
 <div class="container">

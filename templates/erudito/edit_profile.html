@@ -11,6 +11,8 @@
   <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
+  <button type="button"><a href={% url 'eruditoapp:password' %}>Change Password</button>
+  <br></br>
   <button type="submit">Submit</button>
   </form>
   <br>
