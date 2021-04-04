@@ -32,6 +32,7 @@ urlpatterns= [path('about/', views.about, name='about'),
                #Below is the url map for comment likes
                path('like_comment/', views.LikeCommentView.as_view(), name = 'like_comment'),
                path('like_thread/', views.LikeThreadView.as_view(), name='like_thread'),
+               #path('dislike_comment/', views.)
                path('user/<slug:user_name_slug>/', views.show_user,
                     name= 'user'),
                 path('my-account/password', views.change_password, name='password'),

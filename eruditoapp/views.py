@@ -91,10 +91,12 @@ def show_thread(request, subject_name_slug, thread_name_slug):
         if request.user.is_authenticated:
             votes_map= []
             for comment in comments:
-                if Vote.objects.filter(comment=comment, user=request.user).exists():
-                    votes_map.append(False)
+                if Vote.objects.filter(comment=comment, user=request.user, like_type= "like").exists():
+                    votes_map.append("liked")
+                elif Vote.objects.filter(comment=comment, user=request.user, like_type= "dislike").exists():
+                    votes_map.append("disliked")
                 else:
-                    votes_map.append(True)
+                    votes_map.append("nolike")
             comment_votes= zip(comments, votes_map)        
             context_dict['votes'] = comment_votes
         
@@ -244,6 +246,7 @@ class LikeCommentView(View):
     @method_decorator(login_required)
     def get(self, request):
         comment_id = request.GET['comment_id']
+        like_type= request.GET['like_type']
         try:
             comment = Comment.objects.get(id=int(comment_id))
         except Comment.DoesNotExist:
@@ -253,14 +256,32 @@ class LikeCommentView(View):
         user= comment.user
         try:
             userprof= UserProfile.objects.get(user=user) 
-            userprof.score= userprof.score +1
-            userprof.save()
+        
         except UserProfile.DoesNotExist:
             userprof=None
-        comment.score = comment.score + 1
+        if like_type=="like":
+            comment.score = comment.score + 1
+            vote = Vote(user=request.user, like_type='like')
+            userprof.score= userprof.score + 1
+            try:
+                old_vote= Vote.objects.filter(user= request.user, comment=comment, like_type="dislike")
+                old_vote.delete()
+            except Vote.DoesNotExist:
+                pass
+
+        elif like_type=="dislike":
+            comment.score = comment.score - 1
+            vote = Vote(user=request.user, like_type='dislike')
+            try:
+                old_vote= Vote.objects.filter(user= request.user, comment=comment, like_type="like")
+                old_vote.delete()
+            except Vote.DoesNotExist:
+                pass
+            userprof.score= userprof.score - 1
+
         comment.save()
-        vote = Vote(user=request.user)
-        vote.save()
+        vote.save()    
+        userprof.save()
         # vote.user.add(request.user)
         vote.comment.add(comment)
         
@@ -286,12 +307,15 @@ class LikeThreadView(View):
         except UserProfile.DoesNotExist:
             userprof=None
            
-        vote = ThreadVote(user= request.user)
+        vote = ThreadVote(user= request.user, like_type='like')
         vote.save()
         # vote.user.add(request.user)
         vote.thread.add(thread)
         
         return HttpResponse(thread.score)
+    
+
+    
 
 @login_required
 def my_account(request):

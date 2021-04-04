@@ -30,6 +30,12 @@
                         <span data-feather="thumbs-up"></span>
     
                     </button>
+                    {% else %}
+                    <button id="thread_dislike{{ thread.id }}"
+                            data-threadid="{{ thread.id }}"
+                            class="thread_dislike_btn btn btn-primary btn-sm"
+                            type="button">
+                            <span data-feather="thumbs-down"></span>
                     {% endif %}
         </div>
         {% endfor %}

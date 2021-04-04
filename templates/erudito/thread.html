@@ -21,16 +21,40 @@
                 <p><img src="{{ comment.user.userprofile.picture.url }}" width="40" height="40"><a href= "{% url 'eruditoapp:user' comment.user %}">{{ comment.user }} </a> <p>  {{ comment.body }} </p> </p>
                 <div>
                     <strong id="like_count{{ comment.id }}">{{ comment.score }}</strong> likes
-                    {% if vote %}
-                    <button id="like_btn{{ comment.id }}"
+                    
+                    
+                        
+                    {% if vote == 'liked' %}
+                    <button style= "display: none" id="like_btn{{ comment.id }}"
+                                data-commentid="{{ comment.id }}"
+                                class="comment_like_btn btn btn-primary btn-sm"
+                                type="button">
+                            <span data-feather="thumbs-up"></span>
+                    </button>
+                    
+                    <button id="dislike_btn{{ comment.id }}"
                             data-commentid="{{ comment.id }}"
-                            class="comment_like_btn btn btn-primary btn-sm"
+                            class="comment_dislike_btn btn btn-primary btn-sm"
                             type="button">
     
-                        <span data-feather="thumbs-up"></span>
+                        <span data-feather="thumbs-down"></span>
+                    
     
                     </button>
-                    <br></br>
+                    {% else %}
+                        <button id="like_btn{{ comment.id }}"
+                                data-commentid="{{ comment.id }}"
+                                class="comment_like_btn btn btn-primary btn-sm"
+                                type="button">
+                            <span data-feather="thumbs-up"></span>
+                        </button>
+                        <button style= "display: none" id="dislike_btn{{ comment.id }}"
+                            data-commentid="{{ comment.id }}"
+                            class="comment_dislike_btn btn btn-primary btn-sm"
+                            type="button">
+                        <span data-feather="thumbs-down"></span>
+                        </button>
+                    
                     {% endif %}
                 </div>
             {% endfor %}

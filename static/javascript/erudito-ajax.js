@@ -4,10 +4,13 @@ $(document).ready(function() {
         commentIdVar = $(this).attr('data-commentid');
 
         $.get('/like_comment/',
-            {'comment_id': commentIdVar},
+            {'comment_id': commentIdVar,
+            'like_type': 'like'},
             function (data){
                 $('#like_count'.concat(commentIdVar)).html(data)
                 $('#like_btn'.concat(commentIdVar)).hide();
+                console.log("here")
+                $('#dislike_btn'.concat(commentIdVar)).show()
             })
     });
     
@@ -15,10 +18,38 @@ $(document).ready(function() {
         var threadIdVar;
         threadIdVar = $(this).attr('data-threadid');
         $.get('/like_thread/',
-            {'thread_id': threadIdVar},
+            {'thread_id': threadIdVar,
+            'like_type': 'like'},
             function (data){
                 $(('#like_count_thread'.concat(threadIdVar))).html(data);
                 $('#threadbtn'.concat(threadIdVar)).hide();
+            })
+    });
+    $('.thread_dislike_btn').click(function (e){
+        var threadIdVar;
+        threadIdVar = $(this).attr('data-threadid');
+        $.get('/like_thread/',
+            {'thread_id': threadIdVar,
+            'like_type': 'dislike'},
+            function (data){
+                $(('#like_count_thread'.concat(threadIdVar))).html(data);
+                $('#thread_dislike'.concat(threadIdVar)).hide();
+            })
+    });
+    $('.comment_dislike_btn').click(function (){
+        var commentIdVar;
+        commentIdVar = $(this).attr('data-commentid');
+
+        $.get('/like_comment/',
+            {'comment_id': commentIdVar,
+            'like_type': 'dislike'},
+            function (data){
+                
+                $('#like_count'.concat(commentIdVar)).html(data)
+                $('#dislike_btn'.concat(commentIdVar)).hide();
+                console.log("here")
+                console.log("#like_btn".concat(commentIdVar))
+                $('#like_btn'.concat(commentIdVar)).show();
             })
     });
 

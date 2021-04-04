@@ -88,18 +88,21 @@ class UsefulResource(models.Model):
     def __str__(self):
         return self.body[:25]
 
+LIKE_TYPES= (('like', "like"),('dislike', "dislike"))
 
 class Vote(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
     comment= models.ManyToManyField(Comment)
-    #possibly add a boolean has_voted
+    like_type= models.CharField(max_length=10, choices=LIKE_TYPES, default='like')
 
     def __str__(self):
-        return self.user.username + self.comment.body[:25]
+        return self.user.username
 
 
 class ThreadVote(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
     thread= models.ManyToManyField(Thread)
+    like_type= models.CharField(max_length=10, choices=LIKE_TYPES, default='like')
+    
     def __str__(self):
         return self.user.username + self.thread.body[:25]
