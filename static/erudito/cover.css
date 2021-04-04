@@ -64,3 +64,11 @@ body {
     color: #333333;
 }
 
+.subject-thread-presentation{
+    color: black;
+    /*background-color:#212520;*/
+}
+.subject-thread-body{
+    font-size: medium;
+}
+
