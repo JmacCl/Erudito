@@ -9,6 +9,13 @@
 {% endblock %}
 
 {% block body_block %}
+    <p>Search for threads here</p>
+    <form name="search-bar" method="get" action="{% url 'eruditoapp:search' subject.slug %}" >
+{#        {% csrf_token %}#}
+        <input type="text" name="search" placeholder="Search" />
+        <button><a href="{% url 'eruditoapp:search' subject.slug %}"></a>Search</button>
+    </form>
+    <br>
     Sort by:
     <a class="btn btn-lg btn-secondary fw-bold border-black" href= "{% url 'eruditoapp:show_subject' subject.slug '-date' %}">Most Recent</a>
     <a class="btn btn-lg btn-secondary fw-bold border-black" href= "{% url 'eruditoapp:show_subject' subject.slug '-score' %}">Most Popular</a>
@@ -18,7 +25,7 @@
         <div>
 {#        <li><a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}">{{ thread.title }} </a> </li>#}
             <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}" class="btn btn-lg btn-secondary fw-bold border-white subject-thread-presentation">{{ thread.title }}
-            <br><p class="subject-thread-body">{{ thread.body|truncatechars:150 }}</p></a>
+            <br><p class="subject-thread-body">{{ thread.body|truncatechars:150 }}</p></a><br>
 
             <strong id="like_count_thread{{ thread.id }}">{{ thread.score }} </strong> likes
                     {% if vote %}
@@ -38,6 +45,7 @@
                             <span data-feather="thumbs-down"></span>
                     {% endif %}
         </div>
+            <br>
         {% endfor %}
         <p><a href= "{% url 'eruditoapp:add_thread' subject.slug %}">Add Thread</a></p>
 

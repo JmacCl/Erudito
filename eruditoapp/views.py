@@ -60,8 +60,8 @@ def show_subject(request, subject_name_slug, sort='-score'):
     context_dict={}
     try:
         subject= Subject.objects.get(slug=subject_name_slug)
-        threads= Thread.objects.filter(subject=subject).order_by(sort) 
-        
+        threads= Thread.objects.filter(subject=subject).order_by(sort)
+
         if request.user.is_authenticated:
             votes_map=[]
             for thread in threads:
@@ -72,10 +72,10 @@ def show_subject(request, subject_name_slug, sort='-score'):
             thread_votes= zip(threads, votes_map)
             context_dict['votes']= thread_votes
 
-        
+
         context_dict['threads']= threads
         context_dict['subject']= subject
-        
+
     except Subject.DoesNotExist:
         context_dict['threads']= None
         context_dict['subject']= None
@@ -97,9 +97,9 @@ def show_thread(request, subject_name_slug, thread_name_slug):
                     votes_map.append("disliked")
                 else:
                     votes_map.append("nolike")
-            comment_votes= zip(comments, votes_map)        
-            context_dict['votes'] = comment_votes
-        
+                    
+        comment_votes= zip(comments, votes_map)        
+        context_dict['votes'] = comment_votes
         context_dict['subject']= subject
         context_dict['thread']= thread
         context_dict['comments']= comments
@@ -255,8 +255,7 @@ class LikeCommentView(View):
             return HttpResponse(-1)
         user= comment.user
         try:
-            userprof= UserProfile.objects.get(user=user) 
-        
+            userprof= UserProfile.objects.get(user=user)     
         except UserProfile.DoesNotExist:
             userprof=None
         if like_type=="like":
@@ -284,11 +283,11 @@ class LikeCommentView(View):
         userprof.save()
         # vote.user.add(request.user)
         vote.comment.add(comment)
-        
+
         return HttpResponse(comment.score)
-    
+
 class LikeThreadView(View):
-    # @method_decorator(login_required)
+    @method_decorator(login_required)
     def get(self, request):
         thread_id = request.GET['thread_id']
         try:
@@ -301,17 +300,15 @@ class LikeThreadView(View):
         thread.save()
         user= thread.user
         try:
-            userprof= UserProfile.objects.get(user=user) 
+            userprof= UserProfile.objects.get(user=user)
             userprof.score= userprof.score +1
             userprof.save()
         except UserProfile.DoesNotExist:
-            userprof=None
-           
+            userprof=None           
         vote = ThreadVote(user= request.user, like_type='like')
         vote.save()
-        # vote.user.add(request.user)
         vote.thread.add(thread)
-        
+
         return HttpResponse(thread.score)
     
 
@@ -366,7 +363,36 @@ def change_password(request):
             form.save()
             update_session_auth_hash(request, form.user)
             return redirect('eruditoapp:my_account')
+        else:
+            return redirect('eruditoapp:my_account')
     else:
         form = PasswordChangeForm(user=request.user)
         args = {'form': form}
         return render(request,'erudito/change_password.html', args)
+
+def search_thread(request, subject_name_slug, sort='-score'):
+
+    context_dict={}
+    if(request.method == 'GET'):
+        thread_title = request.GET.get('search')
+        try:
+            subject= Subject.objects.get(slug=subject_name_slug)
+            threads= Thread.objects.filter(title__icontains = thread_title, subject =subject).order_by(sort)
+
+            if request.user.is_authenticated:
+                votes_map=[]
+                for thread in threads:
+                    if ThreadVote.objects.filter(thread=thread, user=request.user).exists():
+                        votes_map.append(False)
+                    else:
+                        votes_map.append(True)
+                thread_votes= zip(threads, votes_map)
+                context_dict['votes']= thread_votes
+            context_dict['threads']= threads
+            context_dict['subject']= subject
+        except Subject.DoesNotExist:
+            context_dict['threads']= None
+            context_dict['subject']= None
+        return render(request,'erudito/subject.html',context=context_dict)
+    else:
+        return render(request,'erudito/subject.html',context=context_dict)

@@ -60,6 +60,7 @@ class UserProfileForm(forms.ModelForm):
         fields= ('picture','role')
 
 class EditProfileForm(UserChangeForm):
+    password = None
 
     class Meta:
         model = User
