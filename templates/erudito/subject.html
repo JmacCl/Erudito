@@ -9,6 +9,13 @@
 {% endblock %}
 
 {% block body_block %}
+    <p>Search for threads here</p>
+    <form name="search-bar" method="get" action="{% url 'eruditoapp:search' subject.slug %}" >
+{#        {% csrf_token %}#}
+        <input type="text" name="search" placeholder="Search" />
+        <button><a href="{% url 'eruditoapp:search' subject.slug %}"></a>Search</button>
+    </form>
+    <br>
     Sort by:
     <a class="btn btn-lg btn-secondary fw-bold border-black" href= "{% url 'eruditoapp:show_subject' subject.slug '-date' %}">Most Recent</a>
     <a class="btn btn-lg btn-secondary fw-bold border-black" href= "{% url 'eruditoapp:show_subject' subject.slug '-score' %}">Most Popular</a>

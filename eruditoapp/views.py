@@ -346,3 +346,31 @@ def change_password(request):
         form = PasswordChangeForm(user=request.user)
         args = {'form': form}
         return render(request,'erudito/change_password.html', args)
+
+def search_thread(request, subject_name_slug, sort='-score'):
+
+    context_dict={}
+    if(request.method == 'GET'):
+        thread_title = request.GET.get('search')
+        try:
+            subject= Subject.objects.get(slug=subject_name_slug)
+            threads= Thread.objects.filter(title__icontains = thread_title, subject =subject).order_by(sort)
+
+            if request.user.is_authenticated:
+                votes_map=[]
+                for thread in threads:
+                    if ThreadVote.objects.filter(thread=thread, user=request.user).exists():
+                        votes_map.append(False)
+                    else:
+                        votes_map.append(True)
+                thread_votes= zip(threads, votes_map)
+                context_dict['votes']= thread_votes
+            context_dict['threads']= threads
+            context_dict['subject']= subject
+        except Subject.DoesNotExist:
+            context_dict['threads']= None
+            context_dict['subject']= None
+        return render(request,'erudito/subject.html',context=context_dict)
+    else:
+        return render(request,'erudito/subject.html',context=context_dict)
+
