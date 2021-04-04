@@ -22,7 +22,8 @@ $(document).ready(function() {
             'like_type': 'like'},
             function (data){
                 $(('#like_count_thread'.concat(threadIdVar))).html(data);
-                $('#threadbtn'.concat(threadIdVar)).hide();
+                $('#threadbtn'.concat(threadIdVar)).hide()
+                $('#thread_dislike'.concat(threadIdVar)).show();
             })
     });
     $('.thread_dislike_btn').click(function (e){
@@ -34,6 +35,7 @@ $(document).ready(function() {
             function (data){
                 $(('#like_count_thread'.concat(threadIdVar))).html(data);
                 $('#thread_dislike'.concat(threadIdVar)).hide();
+                $('#threadbtn'.concat(threadIdVar)).show()
             })
     });
     $('.comment_dislike_btn').click(function (){

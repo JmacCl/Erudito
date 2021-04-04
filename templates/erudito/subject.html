@@ -26,24 +26,38 @@
 {#        <li><a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}">{{ thread.title }} </a> </li>#}
             <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}" class="btn btn-lg btn-secondary fw-bold border-white subject-thread-presentation">{{ thread.title }}
             <br><p class="subject-thread-body">{{ thread.body|truncatechars:150 }}</p></a><br>
-
             <strong id="like_count_thread{{ thread.id }}">{{ thread.score }} </strong> likes
-                    {% if vote %}
+            
+            
+            {% if vote == 'liked' %}
+                    <button style="display: none" id= "threadbtn{{ thread.id }}"
+                            data-threadid="{{ thread.id }}"
+                            class="thread_like_btn btn btn-primary btn-sm"
+                            type="button">
+    
+                        <span data-feather="thumbs-up"></span>
+                    </button>
+                    <button id="thread_dislike{{ thread.id }}"
+                            data-threadid="{{ thread.id }}"
+                            class="thread_dislike_btn btn btn-primary btn-sm"
+                            type="button">
+                            <span data-feather="thumbs-down"></span>
+                    </button>
+            {% else %}
+                    <button style="display: none" id="thread_dislike{{ thread.id }}"
+                            data-threadid="{{ thread.id }}"
+                            class="thread_dislike_btn btn btn-primary btn-sm"
+                            type="button">
+                            <span data-feather="thumbs-down"></span>
+                    </button>
                     <button id= "threadbtn{{ thread.id }}"
                             data-threadid="{{ thread.id }}"
                             class="thread_like_btn btn btn-primary btn-sm"
                             type="button">
     
                         <span data-feather="thumbs-up"></span>
-    
                     </button>
-                    {% else %}
-                    <button id="thread_dislike{{ thread.id }}"
-                            data-threadid="{{ thread.id }}"
-                            class="thread_dislike_btn btn btn-primary btn-sm"
-                            type="button">
-                            <span data-feather="thumbs-down"></span>
-                    {% endif %}
+            {% endif %}
         </div>
             <br>
         {% endfor %}
