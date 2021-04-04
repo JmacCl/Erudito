@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from eruditoapp.models import Subject, Thread, Comment, User,  Vote, ThreadVote, UserProfile
+from eruditoapp.models import Subject, Thread, Comment, User,  Vote, ThreadVote, UserProfile, UsefulResource
 from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm, CommentForm, EditProfileForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -228,8 +228,15 @@ def user_login(request):
     else:
         return render(request, 'erudito/login.html')
 
-def useful_resources(request):
+def useful_resources(request,subject_name_slug):
     context_dict ={}
+    subject = Subject.objects.get(slug=subject_name_slug)
+    context_dict['subject'] = subject
+    useful_resources = UsefulResource.objects.filter(subject = subject)
+    context_dict['resources'] = useful_resources
+
+
+
     return render(request, 'erudito/useful-resources.html', context=context_dict)
 
 
