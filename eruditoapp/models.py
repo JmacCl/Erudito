@@ -79,13 +79,14 @@ class UsefulResource(models.Model):
     BODY_MAX_LENGTH= 10000
     subject= models.ForeignKey(Subject, on_delete= models.CASCADE)
     body= models.CharField(max_length=BODY_MAX_LENGTH, default="")
+    url = models.URLField(max_length=1000,default='')
 
 
     def save(self, *args, **kwargs):
         super(UsefulResource, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self
+        return self.body[:25]
 
 
 class Vote(models.Model):

@@ -3,15 +3,20 @@
 
 {% block title_block %}
     {% if subject %}
-        Useful Resources for {{ subject.name }}
+        Resources for {{ subject.name }}
     {% endif %}
-    Hello
+
 {% endblock %}
 
 {% block body_block %}
     Below are the Useful links for {{ subject.name }}:
-    {% for link in links %}
+    <br/>
+    {% for resource in resources %}
+        <li>{{ resource.body }}: <a href="{{ resource.url }}">{{ resource.url }}</a> </li>
+
 
     {% endfor %}
-    Hello
+
+
+
 {% endblock %}
