@@ -72,8 +72,7 @@ def show_subject(request, subject_name_slug, sort='-score'):
                 else: 
                     votes_map.append("nolike")
             thread_votes= zip(threads, votes_map)
-        
-        context_dict['votes']= thread_votes
+            context_dict['votes']= thread_votes
         context_dict['threads']= threads
         context_dict['subject']= subject
 
@@ -99,8 +98,8 @@ def show_thread(request, subject_name_slug, thread_name_slug):
                 else:
                     votes_map.append("nolike")
                     
-        comment_votes= zip(comments, votes_map)        
-        context_dict['votes'] = comment_votes
+            comment_votes= zip(comments, votes_map)        
+            context_dict['votes'] = comment_votes
         context_dict['subject']= subject
         context_dict['thread']= thread
         context_dict['comments']= comments
@@ -309,7 +308,7 @@ class LikeThreadView(View):
             vote = ThreadVote(user= request.user, like_type='like')
             userprof.score= userprof.score +1
             try:
-                old_vote= ThreadVote.objects.filter(user= request.user, thread=thread, like_type="like")
+                old_vote= ThreadVote.objects.filter(user= request.user, thread=thread, like_type="dislike")
                 old_vote.delete()
             except ThreadVote.DoesNotExist:
                 pass
@@ -318,7 +317,7 @@ class LikeThreadView(View):
             vote = ThreadVote(user= request.user, like_type='dislike')
             userprof.score= userprof.score -1
             try:
-                old_vote= ThreadVote.objects.filter(user= request.user, thread=thread, like_type="dislike")
+                old_vote= ThreadVote.objects.filter(user= request.user, thread=thread, like_type="like")
                 old_vote.delete()
             except ThreadVote.DoesNotExist:
                 pass

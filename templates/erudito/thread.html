@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block body_block %}
+    <p><a class= "btn btn-lg btn-secondary fw-bold border-black" href= "{% url 'eruditoapp:show_subject' subject.slug %}"> Back to: {{ subject.name }} </a></p>
     <div>
         <h1> {{ thread.title }} </h1>
         <p><img src="{{ thread.user.userprofile.picture.url }}" width="40" height="40"> <a href= "{% url 'eruditoapp:user' thread.user %}">{{ thread.user }} </a> asks : </p>

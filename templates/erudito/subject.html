@@ -44,12 +44,6 @@
                             <span data-feather="thumbs-down"></span>
                     </button>
             {% else %}
-                    <button style="display: none" id="thread_dislike{{ thread.id }}"
-                            data-threadid="{{ thread.id }}"
-                            class="thread_dislike_btn btn btn-primary btn-sm"
-                            type="button">
-                            <span data-feather="thumbs-down"></span>
-                    </button>
                     <button id= "threadbtn{{ thread.id }}"
                             data-threadid="{{ thread.id }}"
                             class="thread_like_btn btn btn-primary btn-sm"
@@ -57,7 +51,14 @@
     
                         <span data-feather="thumbs-up"></span>
                     </button>
-            {% endif %}
+                    <button style="display: none" id="thread_dislike{{ thread.id }}"
+                            data-threadid="{{ thread.id }}"
+                            class="thread_dislike_btn btn btn-primary btn-sm"
+                            type="button">
+                            <span data-feather="thumbs-down"></span>
+                    </button>
+            {% endif %} 
+            <p>{{ vote }}</p>
         </div>
             <br>
         {% endfor %}
@@ -68,8 +69,9 @@
 
     {% else %}
         {% for thread in threads %}
-            <li>{{ thread.title }} <button class="btn btn-sm" type="button"> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"><span data-feather="plus-circle"></span> </a> </button> </li>
-                <strong id="like_count{{ thread.id }}"> {{ thread.score }} likes</strong> <br>      
+            <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}" class="btn btn-lg btn-secondary fw-bold border-white subject-thread-presentation">{{ thread.title }}
+            <br><p class="subject-thread-body">{{ thread.body|truncatechars:150 }}</p></a><br>
+            <strong id="like_count_thread{{ thread.id }}">{{ thread.score }} </strong> likes <br>     
         {% endfor %}
         
         <p> To create a thread or like you must <a href= "{% url 'eruditoapp:login' %}">log in</a></p>
