@@ -56,11 +56,11 @@ def get_server_side_cookie(request, cookie, default_val=None):
         val = default_val
     return val
 
-def show_subject(request, subject_name_slug):
+def show_subject(request, subject_name_slug, sort='-score'):
     context_dict={}
     try:
         subject= Subject.objects.get(slug=subject_name_slug)
-        threads= Thread.objects.filter(subject=subject).order_by('-score') #unchecked if works or not, could test after break by creating more in population script
+        threads= Thread.objects.filter(subject=subject).order_by(sort) 
         
         if request.user.is_authenticated:
             votes_map=[]
@@ -86,7 +86,7 @@ def show_thread(request, subject_name_slug, thread_name_slug):
     try:
         subject= Subject.objects.get(slug=subject_name_slug)
         thread= Thread.objects.get(slug=thread_name_slug)
-        comments= Comment.objects.filter(thread=thread)
+        comments= Comment.objects.filter(thread=thread).order_by('-score')
         # votes= Vote.objects.all()
         if request.user.is_authenticated:
             votes_map= []
