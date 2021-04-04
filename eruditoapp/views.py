@@ -228,8 +228,11 @@ def user_login(request):
     else:
         return render(request, 'erudito/login.html')
 
-def useful_resources(request):
+def useful_resources(request,subject_name_slug):
     context_dict ={}
+    subject = Subject.objects.get(slug=subject_name_slug)
+    context_dict['subject'] = subject
+
     return render(request, 'erudito/useful-resources.html', context=context_dict)
 
 

@@ -41,7 +41,7 @@
         <p> Don't have an account? <a href= "{% url 'eruditoapp:register' %}">Sign Up</a></p>
     {% endif %}
 {#    Tried implementing useful resources below#}
-{#    <p><a href= "{% url 'eruditoapp:useful_resources' %}">Useful Resources</a></p>#}
+    <p><a href= "{% url 'eruditoapp:useful_resources' subject.slug %}">Useful Resources</a></p>
 {% endblock %}
 
 
