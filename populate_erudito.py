@@ -10,7 +10,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 from eruditoapp.models import Subject, Thread, Comment, UserProfile, User
-import datetime
+from datetime import datetime, timezone
 
 def populate_erudito():
     maths_thread_comments= [{"body": "u is used as one of the parts you want to substitute, and usually a polynomial expression is an ideal choice for u.",
@@ -23,7 +23,7 @@ def populate_erudito():
                     'comments': maths_thread_comments}]
     physics_threads= [{'title':' Why is a photon "massless" ?',
                      'body':"",
-                    'date': datetime.datetime(2021, 4, 3)}]
+                    'date': datetime(2021, 4, 3, tzinfo=timezone.utc)}]
     history_threads= [{'title':'Why did WW1 start?',
                      'body':"Apart from the assassination of Archduke Franz Ferdinand, what were other reasons for the start of WWI?",
                     'date': datetime.datetime.now()}]
@@ -56,9 +56,6 @@ def populate_erudito():
             t= add_thread(subject=s, title= thr['title'], body= thr['body'], date=thr['date'], user=u)
             if 'comments' in thr.keys():
                 for comm in thr['comments']:
-                    print(comm)
-                    print(thr)
-                    print(u)
                     add_comment(thread=t, body= comm['body'], date= comm['date'], user=u)
 
 

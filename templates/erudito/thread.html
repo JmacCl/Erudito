@@ -57,6 +57,9 @@
                         </button>
                     
                     {% endif %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'eruditoapp:report_thread' subject.slug thread.slug comment.id %}">
+                    <span data-feather="flag"></span>
+                </a>
                 </div>
             {% endfor %}
         {% else %}

@@ -2,9 +2,26 @@
 
 
 {% block title_block %}
-Hello
+Report a problem
 {% endblock %}
 
 {% block body_block %}
-Hello
+<h1> Report a problem </h1>
+
+{% if subject %}
+    {% if thread %}
+        {% if comment %}
+            Reporting <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}">{{ comment.body|truncatechars:30 }}</a> in
+        {% else %}
+            Reporting 
+        {% endif %}
+        thread <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}">{{ thread.title|truncatechars:30 }}</a> in subject <a href="{% url 'eruditoapp:show_subject' subject.slug %}">{{ subject.name|truncatechars:30 }}</a>
+    {% endif %}
+   
+    <form name="report" method="post" action="{% url 'eruditoapp:report_thread' subject.slug thread.slug %}">
+     {% csrf_token %}
+    <input type="text" name="report_body" placeholder="What's wrong?" />
+    <button><a href="{% url 'eruditoapp:report_thread' subject.slug thread.slug %}"></a>Submit</button>
+    </form>
+{% endif %}
 {% endblock %}

@@ -42,15 +42,7 @@
                             type="button">
                             <span data-feather="thumbs-down"></span>
                     </button>
-                <button
-                        id="thread_flag{{ thread.id }}"
-                        data-threadid="{{ thread.id }}"
-                        class="thread_flag_btn btn btn-primary btn-sm"
-                        type="button">
-                    <a href="{% url 'eruditoapp:report_thread' subject.slug  %}"></a>
-
-                    <span data-feather="flag"></span>
-                </button>
+          
             {% else %}
                 <button id= "threadbtn{{ thread.id }}"
                             data-threadid="{{ thread.id }}"
@@ -65,16 +57,12 @@
                             type="button">
                             <span data-feather="thumbs-down"></span>
                 </button>
-                <button
-                        id="thread_flag_btn{{ thread.id }}"
-                        data-threadid="{{ thread.id }}"
-                        class="thread_flag_btn btn btn-primary btn-sm"
-                        type="button">
-                <a href="{% url 'eruditoapp:report_thread' subject.slug  %}"></a>
-
-                    <span data-feather="flag"></span>
-                </button>
+                
             {% endif %}
+                  
+                <a class="btn btn-primary btn-sm" href="{% url 'eruditoapp:report_thread' subject.slug thread.slug %}">
+                    <span data-feather="flag"></span>
+                </a>
 
         </div>
             <br>

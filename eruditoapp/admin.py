@@ -1,5 +1,5 @@
 from django.contrib import admin
-from eruditoapp.models import Subject, Thread ,UserProfile, Comment, Vote, ThreadVote, UsefulResource
+from eruditoapp.models import Subject, Thread ,UserProfile, Comment, Vote, ThreadVote, UsefulResource, CommentReport, ThreadReport
 
 
 # Register your models here.
@@ -15,3 +15,6 @@ admin.site.register(Comment)
 admin.site.register(Vote)
 admin.site.register(ThreadVote)
 admin.site.register(UsefulResource)
+admin.site.register(CommentReport)
+admin.site.register(ThreadReport)
+

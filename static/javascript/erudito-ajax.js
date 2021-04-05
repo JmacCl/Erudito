@@ -58,14 +58,5 @@ $(document).ready(function() {
 
     $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
 
-    $('.thread_flag_btn').click(function (){
-        var commentIdVar;
-        commentIdVar = $(this).attr('data-commentid');
-
-        $.get('/report_thread/',
-            {'thread_id': commentIdVar},
-            function (data){
-
-            })
-    });
+    
 });
