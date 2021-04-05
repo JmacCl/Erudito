@@ -415,3 +415,6 @@ def search_thread(request, subject_name_slug, sort='-score'):
         return render(request,'erudito/subject.html',context=context_dict)
     else:
         return render(request,'erudito/subject.html',context=context_dict)
+
+def report_problem(request, subject_name_slug, ):
+    return render(request,'erudito/report.html')

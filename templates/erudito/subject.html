@@ -23,7 +23,6 @@
     {% if user.is_authenticated %}
         {% for thread, vote in votes %}
         <div>
-{#        <li><a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}">{{ thread.title }} </a> </li>#}
             <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}" class="btn btn-lg btn-secondary fw-bold border-white subject-thread-presentation">{{ thread.title }}
             <br><p class="subject-thread-body">{{ thread.body|truncatechars:150 }}</p></a><br>
             <strong id="like_count_thread{{ thread.id }}">{{ thread.score }} </strong> likes
@@ -43,21 +42,40 @@
                             type="button">
                             <span data-feather="thumbs-down"></span>
                     </button>
+                <button
+                        id="thread_flag{{ thread.id }}"
+                        data-threadid="{{ thread.id }}"
+                        class="thread_flag_btn btn btn-primary btn-sm"
+                        type="button">
+                    <a href="{% url 'eruditoapp:report_thread' subject.slug  %}"></a>
+
+                    <span data-feather="flag"></span>
+                </button>
             {% else %}
-                    <button id= "threadbtn{{ thread.id }}"
+                <button id= "threadbtn{{ thread.id }}"
                             data-threadid="{{ thread.id }}"
                             class="thread_like_btn btn btn-primary btn-sm"
                             type="button">
     
                         <span data-feather="thumbs-up"></span>
-                    </button>
-                    <button style="display: none" id="thread_dislike{{ thread.id }}"
+                </button>
+                <button style="display: none" id="thread_dislike{{ thread.id }}"
                             data-threadid="{{ thread.id }}"
                             class="thread_dislike_btn btn btn-primary btn-sm"
                             type="button">
                             <span data-feather="thumbs-down"></span>
-                    </button>
-            {% endif %} 
+                </button>
+                <button
+                        id="thread_flag_btn{{ thread.id }}"
+                        data-threadid="{{ thread.id }}"
+                        class="thread_flag_btn btn btn-primary btn-sm"
+                        type="button">
+                <a href="{% url 'eruditoapp:report_thread' subject.slug  %}"></a>
+
+                    <span data-feather="flag"></span>
+                </button>
+            {% endif %}
+
         </div>
             <br>
         {% endfor %}
@@ -76,7 +94,7 @@
         <p> To create a thread or like you must <a href= "{% url 'eruditoapp:login' %}">log in</a></p>
         <p> Don't have an account? <a href= "{% url 'eruditoapp:register' %}">Sign Up</a></p>
     {% endif %}
-{#    Tried implementing useful resources below#}
+
     <p><a href= "{% url 'eruditoapp:useful_resources' subject.slug %}">Useful Resources</a></p>
     
     <input hidden id="refresh" value="no">

@@ -39,5 +39,8 @@ urlpatterns= [path('about/', views.about, name='about'),
               #Below is attempt at making useful_resources view
                path('subject/<slug:subject_name_slug>/useful-resources/',views.useful_resources, name ='useful_resources'),
                path('subject/<slug:subject_name_slug>/search/',views.search_thread, name = 'search'),
+              path('subject/<slug:subject_name_slug>/report_thread/',views.report_problem, name='report_thread'),
+              # path('subject/<slug:subject_name_slug>/report_thread/',views.report_problem, name='report_comment'),
+
               ]
 

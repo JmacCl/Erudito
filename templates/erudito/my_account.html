@@ -4,18 +4,26 @@
 
 {% block title_block %}
     My Account
+    <style>
+        component-alignment{
+            text-align: unset;
+        }
+    </style>
 {% endblock %}
 
 {% block body_block %}
-<div class="container"
-    <p> username: {{ user }}</p>
-    <p>email: {{ user.email }}</p>
-    <p>role: {{ user.userprofile.role }}</P>
-    <p>score: {{ user.userprofile.score}}</p>
+<div class="my-account-grid"></div>
+    <div class="my-account-grid-elements"><img src="{{ user.userprofile.picture.url }}" width="240" height="240"></div>
+    <div class="my-account-grid-elements">
+        <p> Username : {{ user }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Role: {{ user.userprofile.role }}</P>
+        <p>Score: {{ user.userprofile.score}}</p>
+    </div>
+
     <p>Profile Picure: </p>
-    <img src="{{ user.userprofile.picture.url }}" width="240" height="240">
     <br></br>
-    <button type="button"><a href={% url 'eruditoapp:edit' %}>edit profile</button>
+    <button type="button"><a href={% url 'eruditoapp:edit' %}>edit profile</a></button>
 </div>
 
 <div class="container">
