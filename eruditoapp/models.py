@@ -1,7 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-# import uuid
 
 # Create your models here.
 
@@ -33,7 +32,6 @@ class Thread(models.Model):
     user= models.ForeignKey(User, on_delete= models.CASCADE)
     slug= models.SlugField(unique=True)
 
-    # thread_id=models.CharField(max_length=100, blank=True, unique=True, default=uuid.uuid4)
     def save(self, *args, **kwargs):
         self.slug= slugify(self.title)
         super(Thread, self).save(*args, **kwargs)
@@ -47,7 +45,6 @@ class Comment(models.Model):
     body= models.CharField(max_length= BODY_MAX_LENGTH, default="")
     score= models.IntegerField(default=0)
     date= models.DateTimeField(auto_now_add=True)
-    # likes = models.IntegerField(default=0)
     user= models.ForeignKey(User, on_delete= models.CASCADE)
 
     def __str__(self):
@@ -59,8 +56,7 @@ class UserProfile(models.Model):
     MAX_LENGTH= 64
     user= models.OneToOneField(User, on_delete= models.CASCADE)
     picture= models.ImageField(upload_to='profile_images', default='Default.jpg', blank=False)
-    # fullname=models.CharField(max_length= MAX_LENGTH)
-    # email= models.EmailField() provided by Django User as fields
+
 
     USER_ROLES=(('teacher',"Teacher"),
         ('student',"Student"))

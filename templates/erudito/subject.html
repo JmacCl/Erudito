@@ -11,7 +11,6 @@
 {% block body_block %}
     <p>Search for threads here</p>
     <form name="search-bar" method="get" action="{% url 'eruditoapp:search' subject.slug %}" >
-{#        {% csrf_token %}#}
         <input type="text" name="search" placeholder="Search" />
         <button class="btn  btn-secondary fw-bold border-white bg-white" href="{% url 'eruditoapp:search' subject.slug %}">Search</button>
     </form>
@@ -89,8 +88,3 @@
 {% endblock %}
 
 
-{#<li> <a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.score }} </a></li>#}
-
-
-{#old link#}
-{#<li><a href="{% url 'eruditoapp:show_thread' subject.slug thread.slug %}">{{ thread.title }} </a> </li>#}

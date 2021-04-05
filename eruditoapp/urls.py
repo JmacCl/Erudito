@@ -27,8 +27,6 @@ urlpatterns= [path('about/', views.about, name='about'),
               path('my-account/edit', views.edit_profile, name='edit'),
                path("subject/<slug:subject_name_slug>/thread/<slug:thread_name_slug>/add_comment",
                    views.add_comment, name="add_comment"),
-
-              # path('home/', views.home, name='home'),
                #Below is the url map for comment likes
                path('like_comment/', views.LikeCommentView.as_view(), name = 'like_comment'),
                path('like_thread/', views.LikeThreadView.as_view(), name='like_thread'),
@@ -41,7 +39,5 @@ urlpatterns= [path('about/', views.about, name='about'),
                path('subject/<slug:subject_name_slug>/search/',views.search_thread, name = 'search'),
               path('subject/<slug:subject_name_slug>/report_thread/<slug:thread_name_slug>',views.report_problem, name='report_thread'),
               path('subject/<slug:subject_name_slug>/report_thread/<slug:thread_name_slug>/<int:comment_id>',views.report_problem, name='report_thread'),
-              # path('subject/<slug:subject_name_slug>/report_thread/',views.report_problem, name='report_comment'),
-
               ]
 

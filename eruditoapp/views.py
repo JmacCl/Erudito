@@ -19,12 +19,6 @@ def about(request):
     return render(request, 'erudito/about.html', context=context_dict)
 
 def home(request):
-
-    # most_viewed_threads= Thread.objects.order_by('-views')[:5]
-    # context_dict= {}
-
-    # context_dict['threads'] = most_viewed_threads
-
     context_dict= {}
     visitor_cookie_handler(request)
     subject_list= Subject.objects.all()
@@ -281,7 +275,6 @@ class LikeCommentView(View):
         comment.save()
         vote.save()    
         userprof.save()
-        # vote.user.add(request.user)
         vote.comment.add(comment)
 
         return HttpResponse(comment.score)
