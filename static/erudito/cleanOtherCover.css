@@ -8793,11 +8793,9 @@ textarea.form-control-lg{
 }
 .my-account-grid{
     display: grid;
-    grid-template-columns: auto auto ;
-    padding: 10px;
+    grid-template-columns: auto auto;
 }
 .my-account-grid-elements{
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
+    text-align: left;
 }
 /*# sourceMappingURL=bootstrap.min.css.map */

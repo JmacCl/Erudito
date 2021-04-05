@@ -12,22 +12,20 @@
 {% endblock %}
 
 {% block body_block %}
-<div class="my-account-grid"></div>
-    <div class="my-account-grid-elements"><img src="{{ user.userprofile.picture.url }}" width="240" height="240"></div>
+<div class="my-account-grid">
+    <div class="my-account-grid-elements">Profile Picture:<br><img src="{{ user.userprofile.picture.url }}" width="240" height="240"></div>
     <div class="my-account-grid-elements">
-        <p> Username : {{ user }}</p>
+        <br>
+        <p>Username: {{ user }}</p>
         <p>Email: {{ user.email }}</p>
         <p>Role: {{ user.userprofile.role }}</P>
         <p>Score: {{ user.userprofile.score}}</p>
     </div>
-
-    <p>Profile Picure: </p>
-    <br></br>
-    <button type="button"><a href={% url 'eruditoapp:edit' %}>edit profile</a></button>
 </div>
-
+    <br>
+    <a class="btn btn-lg btn-secondary fw-bold border-white bg-white" href="{% url 'eruditoapp:edit' %}" class="subject-text-colour" >Edit Profile</a>
 <div class="container">
-  <p> user created threads <p>
+  <p> User Created Threads: <p>
     {% for thread in threads %}
         <li> <a href="{% url 'eruditoapp:show_thread' thread.subject.slug thread.slug %}"> {{ thread.title }} -- {{ thread.subject }} </a></li>
     {% endfor %}
