@@ -19,8 +19,8 @@ class SubjectForm(forms.ModelForm):
         fields= ('name',)
 
 class ThreadForm(forms.ModelForm):
-    title= forms.CharField(max_length=Thread.TITLE_MAX_LENGTH)
-    body= forms.CharField(max_length= Thread.BODY_MAX_LENGTH)
+    title= forms.CharField(max_length=Thread.TITLE_MAX_LENGTH,widget=forms.Textarea(attrs={'style' : 'height: 2em; width: 30em;','class':'input-look'}))
+    body= forms.CharField(max_length= Thread.BODY_MAX_LENGTH,widget=forms.Textarea(attrs={'style' : 'height: 10em; width: 30em;','class':'input-look'}))
     # views= forms.IntegerField(widget=forms.HiddenInput(), initial=0)
 
     class Meta:
@@ -40,7 +40,7 @@ class ThreadForm(forms.ModelForm):
     #     return cleaned_data
 
 class CommentForm(forms.ModelForm):
-    body= forms.CharField(max_length=Comment.BODY_MAX_LENGTH, widget=forms.Textarea(attrs={'style' : 'height: 5em; width: 20em;'}))
+    body= forms.CharField(max_length=Comment.BODY_MAX_LENGTH, widget=forms.Textarea(attrs={'style' : 'height: 5em; width: 30em;','class':'input-look'}))
     # likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     class Meta:
         model= Comment
