@@ -14,25 +14,25 @@ from datetime import datetime, timezone
 
 def populate_erudito():
     maths_thread_comments= [{"body": "u is used as one of the parts you want to substitute, and usually a polynomial expression is an ideal choice for u.",
-                             'date':datetime.datetime.now()},
+                             'date':datetime.now()},
                             {"body": "You should try to use a polynomial expression for u, as this usually simplifies the integral.",
-                             'date':datetime.datetime.now()}]
+                             'date':datetime.now()}]
     maths_threads= [{'title':'How do I do integration by parts?',
                      'body':"I don't understand the substitution of u, can somebody help me?",
-                    'date': datetime.datetime.now(),
+                    'date': datetime.now(),
                     'comments': maths_thread_comments}]
     physics_threads= [{'title':' Why is a photon "massless" ?',
                      'body':"",
                     'date': datetime(2021, 4, 3, tzinfo=timezone.utc)}]
     history_threads= [{'title':'Why did WW1 start?',
                      'body':"Apart from the assassination of Archduke Franz Ferdinand, what were other reasons for the start of WWI?",
-                    'date': datetime.datetime.now()}]
+                    'date': datetime.now()}]
     english_threads= [{'title':'How do I analyze a poem?',
                      'body':"",
-                    'date': datetime.datetime.now()}]
+                    'date': datetime.now()}]
     biology_threads= [{'title':'What is the function of the pituitary gland?',
                      'body':"I know it has something to do with hormone regulation, but I'm not quite sure what that means,",
-                    'date': datetime.datetime.now()}]
+                    'date': datetime.now()}]
 
     subjects= {'Maths': {'threads': maths_threads},
                'Physics':{'threads': physics_threads},

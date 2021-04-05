@@ -12,7 +12,7 @@
         <p class="lead">
             <a href="{% url 'eruditoapp:about' %}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Learn more</a>
         </p>
-        <p> Our most popular categories</p>
+        <p> Here are all our subjects</p>
         {% if subjects %}
             {% for subject in subjects %}
                 <a class="btn btn-lg btn-secondary fw-bold border-white bg-white" href="{% url 'eruditoapp:show_subject' subject.slug %}" class="subject-text-colour" >{{ subject.name }}</a>
