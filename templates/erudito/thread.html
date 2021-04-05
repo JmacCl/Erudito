@@ -78,4 +78,7 @@
     <p> To add a comment or like you must <a href= "{% url 'eruditoapp:login' %}">log in</a></p>
     <p> Don't have an account? <a href= "{% url 'eruditoapp:register' %}">Sign Up</a></p>
     {% endif %}
+    
+    <input hidden id="refresh" value="no">
+
 {% endblock %}

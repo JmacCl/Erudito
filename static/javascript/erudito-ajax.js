@@ -54,5 +54,7 @@ $(document).ready(function() {
                 $('#like_btn'.concat(commentIdVar)).show();
             })
     });
+    var $input = $('#refresh');
 
+    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
 });

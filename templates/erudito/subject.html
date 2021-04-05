@@ -58,7 +58,6 @@
                             <span data-feather="thumbs-down"></span>
                     </button>
             {% endif %} 
-            <p>{{ vote }}</p>
         </div>
             <br>
         {% endfor %}
@@ -79,6 +78,8 @@
     {% endif %}
 {#    Tried implementing useful resources below#}
     <p><a href= "{% url 'eruditoapp:useful_resources' subject.slug %}">Useful Resources</a></p>
+    
+    <input hidden id="refresh" value="no">
 {% endblock %}
 
 
