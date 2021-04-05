@@ -13,12 +13,12 @@
     <form name="search-bar" method="get" action="{% url 'eruditoapp:search' subject.slug %}" >
 {#        {% csrf_token %}#}
         <input type="text" name="search" placeholder="Search" />
-        <button class="btn  btn-secondary fw-bold border-black" href="{% url 'eruditoapp:search' subject.slug %}">Search</button>
+        <button class="btn  btn-secondary fw-bold border-white bg-white" href="{% url 'eruditoapp:search' subject.slug %}">Search</button>
     </form>
     <br>
     Sort by:
-    <a class="btn  btn-secondary fw-bold border-black" href= "{% url 'eruditoapp:show_subject' subject.slug '-date' %}">Most Recent</a>
-    <a class="btn  btn-secondary fw-bold border-black" href= "{% url 'eruditoapp:show_subject' subject.slug '-score' %}">Most Popular</a>
+    <a class="btn  btn-secondary fw-bold border-white bg-white" href= "{% url 'eruditoapp:show_subject' subject.slug '-date' %}">Most Recent</a>
+    <a class="btn  btn-secondary fw-bold border-white bg-white" href= "{% url 'eruditoapp:show_subject' subject.slug '-score' %}">Most Popular</a>
 
     {% if user.is_authenticated %}
         {% for thread, vote in votes %}
