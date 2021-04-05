@@ -84,5 +84,9 @@ body {
     padding: 10px;
 }
 
+.input-look{
+    border: 5px outset #212520;
+}
+
 
 
