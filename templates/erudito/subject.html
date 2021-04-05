@@ -13,7 +13,7 @@
     <form name="search-bar" method="get" action="{% url 'eruditoapp:search' subject.slug %}" >
 {#        {% csrf_token %}#}
         <input type="text" name="search" placeholder="Search" />
-        <a class="btn  btn-secondary fw-bold border-black" href="{% url 'eruditoapp:search' subject.slug %}">Search</a>
+        <button class="btn  btn-secondary fw-bold border-black" href="{% url 'eruditoapp:search' subject.slug %}">Search</button>
     </form>
     <br>
     Sort by:

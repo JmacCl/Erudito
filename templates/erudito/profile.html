@@ -9,15 +9,19 @@
 {% endblock %}
 
 {% block body_block %}
-<div class="container">
-    <p> Username: {{ ouser }}</p>
-    <p> Email: {{ ouser.email }}</p>
-    <p> Role: {{ ouser.userprofile.role }}</P>
-    <p> Score: {{ ouser.userprofile.score}}</p>
-    <p> Profile Picure: </p>
-    <img src="{{ ouser.userprofile.picture.url }}" width="240">
-</div>
-
+    <div class="my-account-grid">
+        <div class="my-account-grid-elements">
+            Profile Picture:<br> <img src="{{ ouser.userprofile.picture.url }}" width="240" height="240">
+        </div>
+        <div class="my-account-grid-elements">
+            <br>
+            <p>Username: {{ ouser }}</p>
+            <p>Email: {{ ouser.email }}</p>
+            <p>Role: {{ ouser.userprofile.role }}</P>
+            <p>Score: {{ ouser.userprofile.score}}</p>
+        </div>
+    </div>
+    <br>
 <div class="container">
   <p> user created threads <p>
     {% for thread in threads %}
