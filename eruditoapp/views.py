@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from eruditoapp.models import Subject, Thread, Comment, User,  Vote, ThreadVote, UserProfile, UsefulResource
+from eruditoapp.models import Subject, Thread, Comment, User,  Vote, ThreadVote, UserProfile, UsefulResource, ThreadReport, CommentReport
 from eruditoapp.forms import SubjectForm, ThreadForm, UserForm, UserProfileForm, CommentForm, EditProfileForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -401,20 +401,52 @@ def search_thread(request, subject_name_slug, sort='-score'):
             if request.user.is_authenticated:
                 votes_map=[]
                 for thread in threads:
-                    if ThreadVote.objects.filter(thread=thread, user=request.user).exists():
-                        votes_map.append(False)
-                    else:
-                        votes_map.append(True)
+                    if ThreadVote.objects.filter(thread=thread, user=request.user, like_type="like").exists():
+                        votes_map.append("liked")
+                    elif ThreadVote.objects.filter(thread=thread, user=request.user, like_type="dislike").exists():
+                        votes_map.append("disliked")
+                    else: 
+                        votes_map.append("nolike")
+
                 thread_votes= zip(threads, votes_map)
                 context_dict['votes']= thread_votes
             context_dict['threads']= threads
             context_dict['subject']= subject
-        except Subject.DoesNotExist:
+        except Subject.DoesNotExist or Thread.DoesNotExist:
             context_dict['threads']= None
             context_dict['subject']= None
         return render(request,'erudito/subject.html',context=context_dict)
     else:
         return render(request,'erudito/subject.html',context=context_dict)
 
-def report_problem(request, subject_name_slug, ):
-    return render(request,'erudito/report.html')
+def report_problem(request, subject_name_slug, thread_name_slug, comment_id=None):
+
+        
+    context_dict={}
+    try: 
+        thread= Thread.objects.get(slug=thread_name_slug)
+        subject= Subject.objects.get(slug=subject_name_slug)
+        if comment_id:
+            comment= Comment.objects.get(id=comment_id)
+    except Thread.DoesNotExist or Subject.DoesNotExist or Comment.DoesNotExist:
+        context_dict['thread']= None
+        context_dict['subject']= None
+        context_dict['comment']= None
+    context_dict['thread']= thread
+    context_dict['subject']= subject
+    if comment_id:
+        context_dict['comment']= comment
+
+    if request.method=="POST":
+        body= request.POST.get("report_body")
+        if comment_id:
+            report= CommentReport(user=request.user, body=body)
+            report.save()
+            report.comment.add(comment)
+        else:
+            report= ThreadReport(user=request.user, body=body)
+            report.save()
+            report.thread.add(thread)
+        return redirect(reverse('eruditoapp:home'))
+
+    return render(request,'erudito/report.html', context=context_dict)

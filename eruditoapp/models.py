@@ -105,4 +105,20 @@ class ThreadVote(models.Model):
     like_type= models.CharField(max_length=10, choices=LIKE_TYPES, default='like')
     
     def __str__(self):
-        return self.user.username + self.thread.body[:25]
+        return self.user.username + self.thread.title[:25]
+    
+class CommentReport(models.Model):
+    BODY_MAX_LENGTH= 10000
+    user= models.ForeignKey(User, on_delete=models.CASCADE)
+    comment= models.ManyToManyField(Comment)
+    body= models.CharField(max_length=BODY_MAX_LENGTH, default="")
+    def __str__(self):
+        return self.user.username
+
+class ThreadReport(models.Model):
+    BODY_MAX_LENGTH= 10000
+    user= models.ForeignKey(User, on_delete=models.CASCADE)
+    thread= models.ManyToManyField(Thread)
+    body= models.CharField(max_length=BODY_MAX_LENGTH, default="")
+    def __str__(self):
+        return self.user.username

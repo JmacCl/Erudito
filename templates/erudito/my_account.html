@@ -13,7 +13,9 @@
 
 {% block body_block %}
 <div class="my-account-grid">
-    <div class="my-account-grid-elements">Profile Picture:<br><img src="{{ user.userprofile.picture.url }}" width="240" height="240"></div>
+    <div class="my-account-grid-elements">
+        Profile Picture:<br><img src="{{ user.userprofile.picture.url }}" width="240" height="240">
+    </div>
     <div class="my-account-grid-elements">
         <br>
         <p>Username: {{ user }}</p>

@@ -1,10 +1,6 @@
 {% extends 'erudito/base.html' %}
 {% load static %}
 
-{% block head_block %}
-    <link href="{% static 'erudito/signIn.css' %}" rel="stylesheet">
-{% endblock %}
-
 {% block title_block %}
     Sign In
 {% endblock %}
@@ -12,22 +8,24 @@
 {% block body_block %}
 
 <body class="text-center">
-
-<main class="form-signin">
-  <form id="login_form" method="post" action="{% url 'eruditoapp:login' %}">
-      {% csrf_token %}
-      Username: <input type="text" name="username" value="" size="50" />
-      <br />
-      Password: <input type="password" name="password" value="" size="50" />
-      <br />
-      <input type="submit" value="submit" />
-  </form>
-</main>
+        <h1>Login</h1>
+        <form id="login_form" method="post" action="{% url 'eruditoapp:login' %}">
+            {% csrf_token %}
+            Username:<br>
+            <input class="input-look" type="text" name="username" value="" size="50" />
+            <br>
+            Password:
+            <br>
+            <input class="input-look" type="password" name="password" value="" size="50" />
+            <br>
+            <br>
+            <input class="btn  btn-secondary fw-bold border-white bg-white" type="submit" value="Submit" />
+        </form>
 {% if message %}
 <p>{{ message }}</p>
 {% endif %}
-
-<p class="register-link"> <a href= "{% url 'eruditoapp:register' %}"> New to Erudito? Register here! </a></p>
+    <br>
+<p class="register-link"> New to Erudito? <a href= "{% url 'eruditoapp:register' %}"> Register here! </a></p>
 
 
 </body>

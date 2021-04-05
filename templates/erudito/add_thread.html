@@ -12,12 +12,14 @@
             {% csrf_token %}
             {% for field in form %}
                     {{ field.errors }}
-                    {{ field.label_tag }} {{ field }}<br>
+                   {{ field.label_tag }} {{ field }}<br>
                     {% if field.help_text %}
                     <p class="help">{{ field.help_text|safe }}</p>
                     {% endif %}
             {% endfor %}
-            <input type="submit" name="submit" value="Add thread" />
+        <br>
+            <input class="btn  btn-secondary fw-bold border-white bg-white" type="submit" name="submit" value="Add thread" />
         </form>
     </div>
+    <br>
 {% endblock %}

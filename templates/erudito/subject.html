@@ -13,12 +13,12 @@
     <form name="search-bar" method="get" action="{% url 'eruditoapp:search' subject.slug %}" >
 {#        {% csrf_token %}#}
         <input type="text" name="search" placeholder="Search" />
-        <button><a href="{% url 'eruditoapp:search' subject.slug %}"></a>Search</button>
+        <button class="btn  btn-secondary fw-bold border-white bg-white" href="{% url 'eruditoapp:search' subject.slug %}">Search</button>
     </form>
     <br>
     Sort by:
-    <a class="btn btn-lg btn-secondary fw-bold border-black" href= "{% url 'eruditoapp:show_subject' subject.slug '-date' %}">Most Recent</a>
-    <a class="btn btn-lg btn-secondary fw-bold border-black" href= "{% url 'eruditoapp:show_subject' subject.slug '-score' %}">Most Popular</a>
+    <a class="btn  btn-secondary fw-bold border-white bg-white" href= "{% url 'eruditoapp:show_subject' subject.slug '-date' %}">Most Recent</a>
+    <a class="btn  btn-secondary fw-bold border-white bg-white" href= "{% url 'eruditoapp:show_subject' subject.slug '-score' %}">Most Popular</a>
 
     {% if user.is_authenticated %}
         {% for thread, vote in votes %}
@@ -42,15 +42,7 @@
                             type="button">
                             <span data-feather="thumbs-down"></span>
                     </button>
-                <button
-                        id="thread_flag{{ thread.id }}"
-                        data-threadid="{{ thread.id }}"
-                        class="thread_flag_btn btn btn-primary btn-sm"
-                        type="button">
-                    <a href="{% url 'eruditoapp:report_thread' subject.slug  %}"></a>
-
-                    <span data-feather="flag"></span>
-                </button>
+          
             {% else %}
                 <button id= "threadbtn{{ thread.id }}"
                             data-threadid="{{ thread.id }}"
@@ -65,16 +57,12 @@
                             type="button">
                             <span data-feather="thumbs-down"></span>
                 </button>
-                <button
-                        id="thread_flag_btn{{ thread.id }}"
-                        data-threadid="{{ thread.id }}"
-                        class="thread_flag_btn btn btn-primary btn-sm"
-                        type="button">
-                <a href="{% url 'eruditoapp:report_thread' subject.slug  %}"></a>
-
-                    <span data-feather="flag"></span>
-                </button>
+                
             {% endif %}
+                  
+                <a class="btn btn-primary btn-sm" href="{% url 'eruditoapp:report_thread' subject.slug thread.slug %}">
+                    <span data-feather="flag"></span>
+                </a>
 
         </div>
             <br>
