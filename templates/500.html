@@ -1,13 +1,13 @@
- {% extends 'erudito/base.html' %}
+{% extends 'erudito/base.html' %}
 {% load staticfiles %}
 
 
 {% block title_block %}
-    Error 404
+    Error 500
 {% endblock %}
 
 {% block body_block %}
-<h1>You're not supposed to be here!?</h1>
+<h1>Somethings went wrong :/</h1>
 <p> Please click here to return <a aria-current="page" href="{% url 'eruditoapp:home' %}">home!</a> </p>
 
 {% endblock %}
