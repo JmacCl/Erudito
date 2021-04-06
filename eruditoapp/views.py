@@ -14,16 +14,12 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 def about(request):
     context_dict= {}
-    visitor_cookie_handler(request)
-    context_dict['visits'] = request.session['visits']
     return render(request, 'erudito/about.html', context=context_dict)
 
 def home(request):
     context_dict= {}
-    visitor_cookie_handler(request)
     subject_list= Subject.objects.all()
     context_dict['subjects']= subject_list
-    context_dict['visits'] = request.session['visits']
     return render(request, 'erudito/home.html', context=context_dict)
 
 def subjects(request):
@@ -32,23 +28,6 @@ def subjects(request):
     context_dict['subjects']= subject_list
     return render(request, 'erudito/subjects.html', context= context_dict)
 
-def visitor_cookie_handler(request):
-    visits = int(get_server_side_cookie(request,'visits', '1'))
-    last_visit_cookie = get_server_side_cookie(request, 'last_visit', str(datetime.now()))
-    last_visit_time = datetime.strptime(last_visit_cookie[:-7],'%Y-%m-%d %H:%M:%S')
-    if (datetime.now() - last_visit_time).days > 0:
-        visits = visits + 1
-        request.session['last_visit']= str(datetime.now())
-    else:
-        request.session['last_visit']= last_visit_cookie
-
-    request.session['visits']= visits
-
-def get_server_side_cookie(request, cookie, default_val=None):
-    val = request.session.get(cookie)
-    if not val:
-        val = default_val
-    return val
 
 def show_subject(request, subject_name_slug, sort='-score'):
     context_dict={}
@@ -60,11 +39,11 @@ def show_subject(request, subject_name_slug, sort='-score'):
             votes_map=[]
             for thread in threads:
                 if ThreadVote.objects.filter(thread=thread, user=request.user, like_type="like").exists():
-                    votes_map.append("liked")
+                    votes_map.append("liked") #indicates thread has already been liked, this will change the display of the button on the html.
                 elif ThreadVote.objects.filter(thread=thread, user=request.user, like_type="dislike").exists():
-                    votes_map.append("disliked")
+                    votes_map.append("disliked")  #indicates thread has already been disliked, this will change the display of the button on the html.
                 else: 
-                    votes_map.append("nolike")
+                    votes_map.append("nolike")  #indicates thread has not been liked, this will change the display of the button on the html.
             thread_votes= zip(threads, votes_map)
             context_dict['votes']= thread_votes
         context_dict['threads']= threads
@@ -81,18 +60,17 @@ def show_thread(request, subject_name_slug, thread_name_slug):
         subject= Subject.objects.get(slug=subject_name_slug)
         thread= Thread.objects.get(slug=thread_name_slug)
         comments= Comment.objects.filter(thread=thread).order_by('-score')
-        # votes= Vote.objects.all()
         if request.user.is_authenticated:
             votes_map= []
             for comment in comments:
                 if Vote.objects.filter(comment=comment, user=request.user, like_type= "like").exists():
-                    votes_map.append("liked")
+                    votes_map.append("liked") #indicates comment has already been liked, this will change the display of the button on the html.
                 elif Vote.objects.filter(comment=comment, user=request.user, like_type= "dislike").exists():
-                    votes_map.append("disliked")
+                    votes_map.append("disliked") #indicates comment has already been "disliked", this will change the display of the button on the html.
                 else:
-                    votes_map.append("nolike")
+                    votes_map.append("nolike") #indicates comment has not been liked/disliked. 
                     
-            comment_votes= zip(comments, votes_map)        
+            comment_votes= zip(comments, votes_map) #associates liked/disliked values with corresponding comment       
             context_dict['votes'] = comment_votes
         context_dict['subject']= subject
         context_dict['thread']= thread
@@ -247,7 +225,7 @@ class LikeCommentView(View):
             return HttpResponse(-1)
         except ValueError:
             return HttpResponse(-1)
-        user= comment.user
+        user= comment.user #user here refers to comment author, not request/logged in/current active user
         try:
             userprof= UserProfile.objects.get(user=user)     
         except UserProfile.DoesNotExist:
@@ -258,19 +236,20 @@ class LikeCommentView(View):
             userprof.score= userprof.score + 1
             try:
                 old_vote= Vote.objects.filter(user= request.user, comment=comment, like_type="dislike")
-                old_vote.delete()
+                old_vote.delete() #replaces the old dislike vote for the new like vote, affecting the html display, i.e. whether a like or dislike button is shown
             except Vote.DoesNotExist:
                 pass
 
         elif like_type=="dislike":
             comment.score = comment.score - 1
-            vote = Vote(user=request.user, like_type='dislike')
+            vote = Vote(user=request.user, like_type='dislike')            
+            userprof.score= userprof.score - 1
             try:
                 old_vote= Vote.objects.filter(user= request.user, comment=comment, like_type="like")
-                old_vote.delete()
+                old_vote.delete() #replaces the old like vote for the new dislike vote, affecting the html display, i.e. whether a like or dislike button is shown
             except Vote.DoesNotExist:
                 pass
-            userprof.score= userprof.score - 1
+
 
         comment.save()
         vote.save()    
@@ -290,7 +269,7 @@ class LikeThreadView(View):
             return HttpResponse(-1)
         except ValueError:
             return HttpResponse(-1)
-        user= thread.user
+        user= thread.user #user here refers to comment author, not request/logged in/current active user
         try:
             userprof= UserProfile.objects.get(user=user)
         except UserProfile.DoesNotExist:
