@@ -281,7 +281,7 @@ class LikeThreadView(View):
             userprof.score= userprof.score +1
             try:
                 old_vote= ThreadVote.objects.filter(user= request.user, thread=thread, like_type="dislike")
-                old_vote.delete()
+                old_vote.delete() #replaces the old dislike vote for the new like vote, affecting the html display, i.e. whether a like or dislike button is shown
             except ThreadVote.DoesNotExist:
                 pass
         elif like_type=="dislike":
@@ -290,7 +290,7 @@ class LikeThreadView(View):
             userprof.score= userprof.score -1
             try:
                 old_vote= ThreadVote.objects.filter(user= request.user, thread=thread, like_type="like")
-                old_vote.delete()
+                old_vote.delete() #replaces the old like vote for the new like vote, affecting the html display, i.e. whether a like or dislike button is shown
             except ThreadVote.DoesNotExist:
                 pass
             
@@ -354,7 +354,8 @@ def search_thread(request, subject_name_slug, sort='-score'):
         try:
             subject= Subject.objects.get(slug=subject_name_slug)
             threads= Thread.objects.filter(title__icontains = thread_title, subject =subject).order_by(sort)
-
+            
+            #reusing liking logic from show_subject view
             if request.user.is_authenticated:
                 votes_map=[]
                 for thread in threads:
