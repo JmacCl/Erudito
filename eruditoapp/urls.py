@@ -27,14 +27,10 @@ urlpatterns= [path('about/', views.about, name='about'),
               path('my-account/edit', views.edit_profile, name='edit'),
                path("subject/<slug:subject_name_slug>/thread/<slug:thread_name_slug>/add_comment",
                    views.add_comment, name="add_comment"),
-               #Below is the url map for comment likes
                path('like_comment/', views.LikeCommentView.as_view(), name = 'like_comment'),
                path('like_thread/', views.LikeThreadView.as_view(), name='like_thread'),
-               #path('dislike_comment/', views.)
                path('user/<slug:user_name_slug>/', views.show_user,
                     name= 'user'),
-                path('my-account/password', views.change_password, name='password'),
-              #Below is attempt at making useful_resources view
                path('subject/<slug:subject_name_slug>/useful-resources/',views.useful_resources, name ='useful_resources'),
                path('subject/<slug:subject_name_slug>/search/',views.search_thread, name = 'search'),
               path('subject/<slug:subject_name_slug>/report_thread/<slug:thread_name_slug>',views.report_problem, name='report_thread'),

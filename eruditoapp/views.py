@@ -346,21 +346,6 @@ def edit_profile(request):
         args = {'form': form}
         return render(request,'erudito/edit_profile.html', args)
 
-def change_password(request):
-    if request.method =='POST':
-        form = PasswordChangeForm(data=request.POST, user=request.user)
-
-        if form.is_valid():
-            form.save()
-            update_session_auth_hash(request, form.user)
-            return redirect('eruditoapp:my_account')
-        else:
-            return redirect('eruditoapp:my_account')
-    else:
-        form = PasswordChangeForm(user=request.user)
-        args = {'form': form}
-        return render(request,'erudito/change_password.html', args)
-
 def search_thread(request, subject_name_slug, sort='-score'):
 
     context_dict={}
